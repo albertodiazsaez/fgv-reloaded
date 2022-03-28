@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DatosTarjeta {
-  int numeroTarjeta;
+  String numeroTarjeta;
   String? titulo;
   String? zona;
   String? clase;
