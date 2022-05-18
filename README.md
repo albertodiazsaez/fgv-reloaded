@@ -1,2 +1,2 @@
 # metrovalencia-os
-Re-implementación de la aplicación de Metrovalencia hecha en flutter usando las APIs oficiales.
+Re-implementación de la aplicación de Metrovalencia hecha en Flutter usando las APIs oficiales.
