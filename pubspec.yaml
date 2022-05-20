@@ -32,6 +32,7 @@ dependencies:
   #mask_text_input_formatter: ^2.1.0
   easy_mask: ^2.0.1
   flutter_easyloading: ^3.0.3
+  intl: ^0.17.0
   flutter:
     sdk: flutter
 
@@ -92,3 +93,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Condensed.ttf
+        

@@ -5,12 +5,14 @@ class DatosTarjeta {
   String? titulo;
   String? zona;
   String? clase;
-  String? saldo;
+  DateTime? fechaValidez;
+  dynamic saldo;
 
   DatosTarjeta(
       {required this.numeroTarjeta,
       this.titulo,
       this.zona,
       this.clase,
+      this.fechaValidez,
       this.saldo});
 }

@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 import 'package:transport_info_valencia/tarjetas/models/datos_tarjeta.dart';
 import 'package:transport_info_valencia/tarjetas/models/tarjeta_metrovalencia.dart';
+import 'package:transport_info_valencia/tarjetas/screens/components/tarjeta_card.dart';
 
 class ConsultaTarjetas extends StatefulWidget {
   const ConsultaTarjetas({Key? key}) : super(key: key);
@@ -27,6 +31,83 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
 
   void obtenerDatosTarjetaMetrovalencia(String numeroTarjeta) async {
     print("NUMERO TARJETA $numeroTarjeta");
+
+    setLoader();
+
+    try {
+      final response = await http
+          .get(Uri.parse(
+              'https://www.fgv.es/ap18/api/public/es/api/v1/V/tarjetas-transporte/$numeroTarjeta'))
+          .timeout(const Duration(seconds: 10));
+      //'http://192.168.98.220:3000/ap18/api/public/es/api/v1/V/tarjetas-transporte/$numeroTarjeta'));
+
+      if (response.statusCode == 200) {
+        print("OKEY " + response.body.toString());
+
+        var tarjetaRecibida = ResultadoConsultaTarjetaMetrovalencia.fromJson(
+                jsonDecode(response.body))
+            .resultado;
+
+        setState(() {
+          tarjetasConsultadas[int.parse(numeroTarjeta)] = DatosTarjeta(
+              numeroTarjeta: numeroTarjeta,
+              titulo: tarjetaRecibida?.titulo,
+              zona: tarjetaRecibida?.zona,
+              clase: tarjetaRecibida?.clase,
+              saldo: tarjetaRecibida?.saldo,
+              fechaValidez: tarjetaRecibida?.nuevaValidez == null
+                  ? null
+                  : DateFormat('dd/MM/yyyy')
+                      .parse(tarjetaRecibida?.nuevaValidez));
+        });
+
+        dismissLoader();
+      } else {
+        dismissLoader();
+
+        var jsonResponse = jsonDecode(response.body);
+
+        var errorResponse =
+            jsonResponse['resultado'] ?? 'Se ha producido un error desconocido';
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorResponse),
+            action: SnackBarAction(
+              label: 'Action',
+              onPressed: () {
+                // Code to execute.
+              },
+            ),
+          ),
+        );
+        print("ERROR " + response.body.toString());
+
+        throw Exception();
+      }
+    } on TimeoutException catch (e) {
+      dismissLoader();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Hubo un error en los servidores de Metrovalencia, por favor, inténtelo de nuevo.'),
+          action: SnackBarAction(
+            label: 'Action',
+            onPressed: () {
+              // Code to execute.
+            },
+          ),
+        ),
+      );
+    }
+  }
+
+  void dismissLoader() {
+    EasyLoading.dismiss();
+  }
+
+  void setLoader() {
     EasyLoading el = EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 2000)
       ..indicatorType = EasyLoadingIndicatorType.fadingCircle
@@ -42,31 +123,6 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
       ..userInteractions = false
       ..dismissOnTap = false;
     EasyLoading.show();
-
-    final response = await http.get(Uri.parse(
-        'https://www.fgv.es/ap18/api/public/es/api/v1/V/tarjetas-transporte/$numeroTarjeta'));
-    //'http://192.168.98.220:3000/ap18/api/public/es/api/v1/V/tarjetas-transporte/$numeroTarjeta'));
-
-    if (response.statusCode == 200) {
-      print("OKEY " + response.body.toString());
-
-      var tarjetaRecibida = ResultadoConsultaTarjetaMetrovalencia.fromJson(
-              jsonDecode(response.body))
-          .resultado;
-      setState(() {
-        tarjetasConsultadas[int.parse(numeroTarjeta)] = DatosTarjeta(
-            numeroTarjeta: numeroTarjeta,
-            titulo: tarjetaRecibida?.titulo,
-            zona: tarjetaRecibida?.zona,
-            clase: tarjetaRecibida?.clase,
-            saldo: tarjetaRecibida?.saldo);
-      });
-      EasyLoading.dismiss();
-    } else {
-      print("ERROR " + response.body.toString());
-      EasyLoading.dismiss();
-      throw Exception();
-    }
   }
 
   @override
@@ -85,17 +141,28 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TextFormField(
-                  inputFormatters: [TextInputMask(mask: '9999 9999 9999')],
-                  controller: inputTarjetaController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                      hintText: 'Introduce el número de la tarjeta'),
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor introduzca un número válido';
-                    }
-                  },
+                Row(
+                  children: [
+                    Flexible(
+                        child: TextFormField(
+                      inputFormatters: [TextInputMask(mask: '9999 9999 9999')],
+                      controller: inputTarjetaController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                          hintText: 'Introduce el número de la tarjeta'),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor introduzca un número válido';
+                        }
+                      },
+                    )),
+                    ElevatedButton(
+                      onPressed: () => {
+                        inputTarjetaController.text = '',
+                      },
+                      child: const Text('Borrar'),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -103,10 +170,11 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
                     onPressed: () => {
                       obtenerDatosTarjetaMetrovalencia(
                           inputTarjetaController.text.replaceAll(' ', '')),
+                      FocusManager.instance.primaryFocus?.unfocus()
                     },
                     child: const Text('Comprobar Tarjeta'),
                   ),
-                )
+                ),
               ],
             )),
         Expanded(
@@ -121,93 +189,11 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
                   .toList()
                   .elementAt(index)];
 
-              return SizedBox(
-                width: double.infinity,
-                child: Card(
-                  child: Container(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      width: 1.0,
-                                      color: Theme.of(context).dividerColor))),
-                          child: ListTile(
-                            title: Row(
-                              children: [
-                                const Text('Número Tarjeta:',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                Text(' ${maskTarjeta(iTarjeta.numeroTarjeta)}')
-                              ],
-                            ),
-                            visualDensity: VisualDensity.compact,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 15, top: 10),
-                          child: Row(
-                            children: [
-                              const Text('Título:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text(' ${iTarjeta.titulo}')
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 15, top: 10),
-                          child: Row(
-                            children: [
-                              const Text('Clase:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text(' ${iTarjeta.clase}')
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 15, top: 10),
-                          child: Row(
-                            children: [
-                              const Text('Zona:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text(' ${iTarjeta.zona}')
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 15, top: 10),
-                          child: Row(
-                            children: [
-                              const Text('Saldo:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                              Text(
-                                ' ${iTarjeta.saldo}',
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
+              return TarjetaCard(tarjeta: iTarjeta);
             },
           ),
         ),
       ],
     );
-  }
-
-  String maskTarjeta(String numeroTarjeta) {
-    return MagicMask.buildMask('9999 9999 9999').getMaskedString(numeroTarjeta);
   }
 }
