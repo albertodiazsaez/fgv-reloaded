@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:transport_info_valencia/tarjetas/screens/consulta_tarjetas.dart';
+import 'package:metrovalencia_reloaded/tarjetas/screens/consulta_tarjetas.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Metrovalencia Reloaded',
       theme: ThemeData(
-        fontFamily: 'Roboto',
+        fontFamily: 'TitilliumWeb',
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromARGB(255, 222, 28, 44),
           secondary: const Color.fromARGB(255, 47, 47, 47),
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Metrovalencia Reloaded'),
       builder: EasyLoading.init(),
     );
   }

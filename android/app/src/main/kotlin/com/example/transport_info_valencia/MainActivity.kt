@@ -1,4 +1,4 @@
-package com.example.transport_info_valencia
+package com.example.metrovalencia_reloaded
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
-name: transport_info_valencia
-description: A new Flutter project.
+name: metrovalencia_reloaded
+description: A Clone of the Metrovalencia APP made in Flutter.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -95,7 +95,23 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   fonts:
-    - family: Roboto
+    - family: TitilliumWeb
       fonts:
-        - asset: fonts/Roboto-Condensed.ttf
+        - asset: fonts/TitilliumWeb/TitilliumWeb-Black.ttf
+        - asset: fonts/TitilliumWeb/TitilliumWeb-BoldItalic.ttf
+          style: italic
+        - asset: fonts/TitilliumWeb/TitilliumWeb-Bold.ttf
+        - asset: fonts/TitilliumWeb/TitilliumWeb-ExtraLightItalic.ttf
+          style: italic
+        - asset: fonts/TitilliumWeb/TitilliumWeb-ExtraLight.ttf
+        - asset: fonts/TitilliumWeb/TitilliumWeb-Italic.ttf
+          style: italic
+        - asset: fonts/TitilliumWeb/TitilliumWeb-LightItalic.ttf
+          style: italic
+        - asset: fonts/TitilliumWeb/TitilliumWeb-Light.ttf
+        - asset: fonts/TitilliumWeb/TitilliumWeb-Regular.ttf
+        - asset: fonts/TitilliumWeb/TitilliumWeb-SemiBoldItalic.ttf
+          style: italic
+        - asset: fonts/TitilliumWeb/TitilliumWeb-SemiBold.ttf
+
         

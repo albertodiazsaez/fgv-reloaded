@@ -7,9 +7,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
-import 'package:transport_info_valencia/tarjetas/models/datos_tarjeta.dart';
-import 'package:transport_info_valencia/tarjetas/models/tarjeta_metrovalencia.dart';
-import 'package:transport_info_valencia/tarjetas/screens/components/tarjeta_card.dart';
+import 'package:metrovalencia_reloaded/tarjetas/models/datos_tarjeta.dart';
+import 'package:metrovalencia_reloaded/tarjetas/models/tarjeta_metrovalencia.dart';
+import 'package:metrovalencia_reloaded/tarjetas/screens/components/tarjeta_card.dart';
 
 class ConsultaTarjetas extends StatefulWidget {
   const ConsultaTarjetas({Key? key}) : super(key: key);
@@ -29,7 +29,94 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
 
   Map tarjetasConsultadas = <int, DatosTarjeta>{};
 
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Column(
+          children: [
+            Form(
+                key: _consultaTarjetaFormKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        Flexible(
+                          child: TextFormField(
+                            onFieldSubmitted: (value) {
+                              obtenerDatosTarjetaMetrovalencia(
+                                  inputTarjetaController.text);
+                            },
+                            textInputAction: TextInputAction.go,
+                            inputFormatters: [
+                              TextInputMask(mask: '9999 9999 9999')
+                            ],
+                            controller: inputTarjetaController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                                hintText: 'Introduce el número de la tarjeta'),
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor introduzca un número válido';
+                              }
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          child: ElevatedButton(
+                            onPressed: () => {
+                              inputTarjetaController.text = '',
+                            },
+                            child: const Text('Borrar'),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: ElevatedButton(
+                            onPressed: () => {
+                              obtenerDatosTarjetaMetrovalencia(
+                                  inputTarjetaController.text),
+                            },
+                            child: const Text('Comprobar Tarjeta'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: tarjetasConsultadas.keys.length,
+                itemBuilder: (context, index) {
+                  DatosTarjeta iTarjeta = tarjetasConsultadas[
+                      tarjetasConsultadas.keys
+                          .toList()
+                          .reversed
+                          .toList()
+                          .elementAt(index)];
+
+                  return TarjetaCard(tarjeta: iTarjeta);
+                },
+              ),
+            ),
+          ],
+        ));
+  }
+
   void obtenerDatosTarjetaMetrovalencia(String numeroTarjeta) async {
+    numeroTarjeta = numeroTarjeta.replaceAll(' ', '');
+
+    //Quitamos el foco del teclado.
+    FocusManager.instance.primaryFocus?.unfocus();
+
     print("NUMERO TARJETA $numeroTarjeta");
 
     setLoader();
@@ -130,70 +217,5 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
     // Clean up the controller when the widget is disposed.
     inputTarjetaController.dispose();
     super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Form(
-            key: _consultaTarjetaFormKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: [
-                    Flexible(
-                        child: TextFormField(
-                      inputFormatters: [TextInputMask(mask: '9999 9999 9999')],
-                      controller: inputTarjetaController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                          hintText: 'Introduce el número de la tarjeta'),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Por favor introduzca un número válido';
-                        }
-                      },
-                    )),
-                    ElevatedButton(
-                      onPressed: () => {
-                        inputTarjetaController.text = '',
-                      },
-                      child: const Text('Borrar'),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: ElevatedButton(
-                    onPressed: () => {
-                      obtenerDatosTarjetaMetrovalencia(
-                          inputTarjetaController.text.replaceAll(' ', '')),
-                      FocusManager.instance.primaryFocus?.unfocus()
-                    },
-                    child: const Text('Comprobar Tarjeta'),
-                  ),
-                ),
-              ],
-            )),
-        Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: tarjetasConsultadas.keys.length,
-            itemBuilder: (context, index) {
-              DatosTarjeta iTarjeta = tarjetasConsultadas[tarjetasConsultadas
-                  .keys
-                  .toList()
-                  .reversed
-                  .toList()
-                  .elementAt(index)];
-
-              return TarjetaCard(tarjeta: iTarjeta);
-            },
-          ),
-        ),
-      ],
-    );
   }
 }

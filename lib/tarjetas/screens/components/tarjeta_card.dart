@@ -1,7 +1,7 @@
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:transport_info_valencia/tarjetas/models/datos_tarjeta.dart';
+import 'package:metrovalencia_reloaded/tarjetas/models/datos_tarjeta.dart';
 
 class TarjetaCard extends StatelessWidget {
   const TarjetaCard({Key? key, required this.tarjeta}) : super(key: key);
@@ -10,9 +10,10 @@ class TarjetaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
     return SizedBox(
-      width: double.infinity,
       child: Card(
+        margin: EdgeInsets.zero,
         child: Container(
           padding: const EdgeInsets.only(bottom: 10),
           child: Column(

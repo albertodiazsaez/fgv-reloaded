@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(transport_info_valencia LANGUAGES CXX)
+project(metrovalencia_reloaded LANGUAGES CXX)
 
-set(BINARY_NAME "transport_info_valencia")
+set(BINARY_NAME "metrovalencia_reloaded")
 
 cmake_policy(SET CMP0063 NEW)
 
