@@ -10,10 +10,10 @@ class TarjetaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
+    bool isScreenWide = MediaQuery.of(context).size.width >= 500;
     return SizedBox(
       child: Card(
-        margin: EdgeInsets.zero,
+        margin: const EdgeInsets.only(bottom: 5),
         child: Container(
           padding: const EdgeInsets.only(bottom: 10),
           child: Column(
@@ -25,7 +25,7 @@ class TarjetaCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border(
                         bottom: BorderSide(
-                            width: 1.0,
+                            width: 0.5,
                             color: Theme.of(context).dividerColor))),
                 child: ListTile(
                   title: Row(
@@ -38,67 +38,72 @@ class TarjetaCard extends StatelessWidget {
                   visualDensity: VisualDensity.compact,
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 15, top: 10),
-                child: Row(
-                  children: [
-                    const Text('Título:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(' ${tarjeta.titulo}')
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 15, top: 10),
-                child: Row(
-                  children: [
-                    const Text('Clase:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(' ${tarjeta.clase}')
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 15, top: 10),
-                child: Row(
-                  children: [
-                    const Text('Zona:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(' ${tarjeta.zona}')
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 15, top: 10),
-                child: Row(
-                  children: [
-                    const Text('Saldo:',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(
-                      ' ${tarjeta.saldo}',
-                    )
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: tarjeta.fechaValidez != null,
-                child: Container(
-                  margin: const EdgeInsets.only(left: 15, top: 10),
-                  child: Row(
-                    children: [
-                      const Text('Fecha Validez:',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text(tarjeta.fechaValidez == null
-                          ? ''
-                          : ' ' +
-                              DateFormat(
-                                      'dd-MM-yyyy',
-                                      Localizations.maybeLocaleOf(context)
-                                          ?.toLanguageTag())
-                                  .format(tarjeta.fechaValidez!))
-                    ],
+              Flex(
+                direction: isScreenWide ? Axis.horizontal : Axis.vertical,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 15, top: 5),
+                    child: Row(
+                      children: [
+                        const Text('Título:',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(' ${tarjeta.titulo}')
+                      ],
+                    ),
                   ),
-                ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 15, top: 5),
+                    child: Row(
+                      children: [
+                        const Text('Clase:',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(' ${tarjeta.clase}')
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 15, top: 5),
+                    child: Row(
+                      children: [
+                        const Text('Zona:',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(' ${tarjeta.zona}')
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 15, top: 5),
+                    child: Row(
+                      children: [
+                        const Text('Saldo:',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          ' ${tarjeta.saldo}',
+                        )
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: tarjeta.fechaValidez != null,
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 15, top: 5),
+                      child: Row(
+                        children: [
+                          const Text('Fecha Validez:',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          Text(tarjeta.fechaValidez == null
+                              ? ''
+                              : ' ' +
+                                  DateFormat(
+                                          'dd-MM-yyyy',
+                                          Localizations.maybeLocaleOf(context)
+                                              ?.toLanguageTag())
+                                      .format(tarjeta.fechaValidez!))
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               )
             ],
           ),
