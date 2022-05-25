@@ -4,18 +4,18 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:metrovalencia_reloaded/environments/environment.dart';
-import 'package:metrovalencia_reloaded/exceptions/metrovalencia_server_exception.dart';
+import 'package:metrovalencia_reloaded/exceptions/fgv_server_exception.dart';
 import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
-import 'package:metrovalencia_reloaded/models/metrovalencia/metrovalencia_transport_card.dart';
+import 'package:metrovalencia_reloaded/models/fgv/fgv_transport_card.dart';
 import 'package:metrovalencia_reloaded/models/transport_card_data.dart';
 import 'package:http/http.dart' as http;
 
-abstract class AbstractMetrovalenciaTransportCardService {
+abstract class AbstractFgvTransportCardService {
   Future<TransportCard> getTransportCard(String transportCardNumber);
 }
 
-class MetrovalenciaTransportCardService
-    implements AbstractMetrovalenciaTransportCardService {
+class FgvTransportCardService
+    implements AbstractFgvTransportCardService {
 
 var url = Environment.getFgvUrl()+'tarjetas-transporte/';
 
@@ -28,7 +28,7 @@ var url = Environment.getFgvUrl()+'tarjetas-transporte/';
 
       if (response.statusCode == 200) {
         var resultTransportCard =
-            MetrovalenciaTransportCard.fromJson(jsonDecode(response.body))
+            FgvTransportCard.fromJson(jsonDecode(response.body))
                 .resultado;
 
         return TransportCard(
@@ -50,33 +50,7 @@ var url = Environment.getFgvUrl()+'tarjetas-transporte/';
       }
     } on TimeoutException catch (e) {
       log(e.toString());
-      throw MetrovalenciaServerException();
+      throw FgvServerException();
     }
   }
-
-//         dismissLoader();
-//       } else {
-//         dismissLoader();
-
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text(errorResponse),
-//             action: SnackBarAction(
-//               label: 'Action',
-//               onPressed: () {
-//                 // Code to execute.
-//               },
-//             ),
-//           ),
-//         );
-
-//         throw Exception();
-//       }
-//     } on TimeoutException catch (e) {
-//       dismissLoader();
-
-//
-//     }
-// }
-
 }

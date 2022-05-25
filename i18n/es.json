@@ -16,6 +16,9 @@
             "validityDate": "Fecha Validez"
         }
     },
+    "stations": {
+        "title": "Estaciones"
+    },
     "symbols": {
         "colon": ":"
     },

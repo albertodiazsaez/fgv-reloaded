@@ -1,16 +1,16 @@
-class MetrovalenciaTransportCard {
+class FgvTransportCard {
   int? status;
   int? error;
-  TarjetaMetrovalencia? resultado;
+  TarjetaFgv? resultado;
 
-  MetrovalenciaTransportCard(
+  FgvTransportCard(
       {this.status, this.error, this.resultado});
 
-  MetrovalenciaTransportCard.fromJson(Map<String, dynamic> json) {
+  FgvTransportCard.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     error = json['error'];
     resultado = json['resultado'] != null
-        ? TarjetaMetrovalencia.fromJson(json['resultado'])
+        ? TarjetaFgv.fromJson(json['resultado'])
         : null;
   }
 
@@ -25,7 +25,7 @@ class MetrovalenciaTransportCard {
   }
 }
 
-class TarjetaMetrovalencia {
+class TarjetaFgv {
   String? tituloId;
   String? titulo;
   String? zona;
@@ -44,7 +44,7 @@ class TarjetaMetrovalencia {
   dynamic nuevaValidez;
   Notas? notas;
 
-  TarjetaMetrovalencia(
+  TarjetaFgv(
       {this.tituloId,
       this.titulo,
       this.zona,
@@ -63,7 +63,7 @@ class TarjetaMetrovalencia {
       this.nuevaValidez,
       this.notas});
 
-  TarjetaMetrovalencia.fromJson(Map<String, dynamic> json) {
+  TarjetaFgv.fromJson(Map<String, dynamic> json) {
     tituloId = json['titulo_id'];
     titulo = json['titulo'];
     zona = json['zona'];

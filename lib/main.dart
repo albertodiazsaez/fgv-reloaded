@@ -2,8 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:metrovalencia_reloaded/screens/home/home.dart';
-import 'package:metrovalencia_reloaded/screens/transportCards/check_transport_cards.dart';
-import 'package:metrovalencia_reloaded/service_locator.dart';
+import 'package:metrovalencia_reloaded/services/fgv/service_locator.dart';
 
 import 'environments/environment.dart';
 
