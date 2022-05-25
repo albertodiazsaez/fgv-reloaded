@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:metrovalencia_reloaded/tarjetas/models/datos_tarjeta.dart';
 
 class TarjetaCard extends StatelessWidget {
@@ -30,7 +30,9 @@ class TarjetaCard extends StatelessWidget {
                 child: ListTile(
                   title: Row(
                     children: [
-                      const Text('Número Tarjeta:',
+                      Text(
+                          tr('transportCards.card.cardNumber') +
+                              tr('symbols.colon'),
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       Text(' ${maskTarjeta(tarjeta.numeroTarjeta)}')
                     ],
@@ -45,8 +47,11 @@ class TarjetaCard extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 15, top: 5),
                     child: Row(
                       children: [
-                        const Text('Título:',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                            tr('transportCards.card.title') +
+                                tr('symbols.colon'),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                         Text(' ${tarjeta.titulo}')
                       ],
                     ),
@@ -55,8 +60,11 @@ class TarjetaCard extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 15, top: 5),
                     child: Row(
                       children: [
-                        const Text('Clase:',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                            tr('transportCards.card.class') +
+                                tr('symbols.colon'),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                         Text(' ${tarjeta.clase}')
                       ],
                     ),
@@ -65,8 +73,11 @@ class TarjetaCard extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 15, top: 5),
                     child: Row(
                       children: [
-                        const Text('Zona:',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                            tr('transportCards.card.zone') +
+                                tr('symbols.colon'),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                         Text(' ${tarjeta.zona}')
                       ],
                     ),
@@ -75,8 +86,11 @@ class TarjetaCard extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 15, top: 5),
                     child: Row(
                       children: [
-                        const Text('Saldo:',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                            tr('transportCards.card.balance') +
+                                tr('symbols.colon'),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                         Text(
                           ' ${tarjeta.saldo}',
                         )
@@ -89,8 +103,11 @@ class TarjetaCard extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 15, top: 5),
                       child: Row(
                         children: [
-                          const Text('Fecha Validez:',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          Text(
+                              tr('transportCards.card.validityDate') +
+                                  tr('symbols.colon'),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                           Text(tarjeta.fechaValidez == null
                               ? ''
                               : ' ' +
@@ -113,6 +130,6 @@ class TarjetaCard extends StatelessWidget {
   }
 
   String maskTarjeta(String numeroTarjeta) {
-    return MagicMask.buildMask('9999 9999 9999').getMaskedString(numeroTarjeta);
+    return MagicMask.buildMask(tr('transportCards.cardNumberMask')).getMaskedString(numeroTarjeta);
   }
 }

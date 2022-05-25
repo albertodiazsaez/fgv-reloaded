@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -50,17 +51,12 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
                             },
                             textInputAction: TextInputAction.go,
                             inputFormatters: [
-                              TextInputMask(mask: '9999 9999 9999')
+                              TextInputMask(mask: tr('transportCards.cardNumberMask'))
                             ],
                             controller: inputTarjetaController,
                             keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                                hintText: 'Introduce el número de la tarjeta'),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Por favor introduzca un número válido';
-                              }
-                            },
+                            decoration: InputDecoration(
+                                hintText: tr('transportCards.typeCardNumber')),
                           ),
                         ),
                         Container(
@@ -69,7 +65,7 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
                             onPressed: () => {
                               inputTarjetaController.text = '',
                             },
-                            child: const Text('Borrar'),
+                            child: Text(tr('delete')),
                           ),
                         ),
                       ],
@@ -84,7 +80,7 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
                               obtenerDatosTarjetaMetrovalencia(
                                   inputTarjetaController.text),
                             },
-                            child: const Text('Comprobar Tarjeta'),
+                            child: Text(tr('transportCards.checkCard')),
                           ),
                         ),
                       ],
@@ -116,9 +112,6 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
 
     //Quitamos el foco del teclado.
     FocusManager.instance.primaryFocus?.unfocus();
-
-    print("NUMERO TARJETA $numeroTarjeta");
-
     setLoader();
 
     try {
@@ -129,8 +122,6 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
       //'http://192.168.98.220:3000/ap18/api/public/es/api/v1/V/tarjetas-transporte/$numeroTarjeta'));
 
       if (response.statusCode == 200) {
-        print("OKEY " + response.body.toString());
-
         var tarjetaRecibida = ResultadoConsultaTarjetaMetrovalencia.fromJson(
                 jsonDecode(response.body))
             .resultado;
@@ -155,7 +146,7 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
         var jsonResponse = jsonDecode(response.body);
 
         var errorResponse =
-            jsonResponse['resultado'] ?? 'Se ha producido un error desconocido';
+            jsonResponse['resultado'] ?? tr('errors.unknownError');
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -168,7 +159,6 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
             ),
           ),
         );
-        print("ERROR " + response.body.toString());
 
         throw Exception();
       }
@@ -177,8 +167,7 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-              'Hubo un error en los servidores de Metrovalencia, por favor, inténtelo de nuevo.'),
+          content: Text(tr('errors.metrovalenciaError')),
           action: SnackBarAction(
             label: 'Action',
             onPressed: () {

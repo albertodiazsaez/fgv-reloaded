@@ -1,0 +1,26 @@
+{
+    "appTitle": "Metrovalencia Reloaded",
+    "delete": "Borrar",
+    "transportCards": {
+        "title": "Tarjetas Transporte",
+        "cardNumberMask": "9999 9999 9999",
+        "typeCardNumber": "Introduce el número de la tarjeta",
+        "pleaseTypeValidNumber": "Por favor introduzca un número válido",
+        "checkCard": "Comprobar Tarjeta",
+        "card": {
+            "cardNumber": "Número Tarjeta",
+            "title": "Título",
+            "class": "Clase",
+            "zone": "Zona",
+            "balance": "Saldo",
+            "validityDate": "Fecha Validez"
+        }
+    },
+    "symbols": {
+        "colon": ":"
+    },
+    "errors": {
+        "unknownError": "Se ha producido un error desconocido.",
+        "metrovalenciaError": "Se ha producido un error en los servidores de Metrovalencia, por favor, inténtelo de nuevo."
+    }
+}
