@@ -1,11 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:metrovalencia_reloaded/tarjetas/screens/transportCards/check_transport_cards.dart';
+import 'package:metrovalencia_reloaded/screens/transportCards/check_transport_cards.dart';
+import 'package:metrovalencia_reloaded/service_locator.dart';
+
+import 'environments/environment.dart';
+
 Future<void> main() async {
+  String environment = getEnvironment();
+
+  Environment().initConfig(environment);
+
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
+  setupServiceLocator();
   runApp(
     EasyLocalization(
       child: const MyApp(),
@@ -17,13 +26,21 @@ Future<void> main() async {
   );
 }
 
+String getEnvironment() {
+  const String environment = String.fromEnvironment(
+    'ENVIRONMENT',
+    defaultValue: Environment.PROD,
+  );
+  // flutter run --dart-define=ENVIRONMENT=PROD
+  return environment;
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
         onGenerateTitle: (context) {
           return tr('appTitle');
@@ -46,7 +63,7 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
         ),
-        home: MyHomePage(),
+        home: const MyHomePage(),
         builder: EasyLoading.init(),
         // Localization
         localizationsDelegates: context.localizationDelegates,
@@ -101,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(tr('appTitle')),
       ),
-      body: const ConsultaTarjetas(),
+      body: const CheckTransportCards(),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

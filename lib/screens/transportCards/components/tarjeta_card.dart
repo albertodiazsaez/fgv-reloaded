@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
-import 'package:metrovalencia_reloaded/tarjetas/models/transport_card_data.dart';
+import 'package:metrovalencia_reloaded/models/transport_card_data.dart';
 
 class TarjetaCard extends StatelessWidget {
   const TarjetaCard({Key? key, required this.tarjeta}) : super(key: key);
