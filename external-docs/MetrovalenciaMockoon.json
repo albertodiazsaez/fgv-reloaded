@@ -1,0 +1,67 @@
+{
+  "uuid": "61392151-0eb3-47fe-8e8a-96930baab1a3",
+  "lastMigration": 19,
+  "name": "MetrovalenciaMockoon",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "5b0f91f3-7ebf-4e3b-96e3-6c102fba1368",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "https:/www.fgv.es/ap18/api/public/es/api/v1/V/incidencias",
+      "responses": [
+        {
+          "uuid": "6fadaf3f-8be0-4e3e-a186-9583895ac800",
+          "body": "{\n\t\"incidencias\": [\n\t\t{\n\t\t\t\"id\": 3230609,\n\t\t\t\"linea_id\": 57,\n\t\t\t\"fecha\": null,\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 3230610,\n\t\t\t\"linea_id\": 42,\n\t\t\t\"fecha\": null,\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 3230611,\n\t\t\t\"linea_id\": 43,\n\t\t\t\"fecha\": null,\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 3230612,\n\t\t\t\"linea_id\": 48,\n\t\t\t\"fecha\": null,\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 3230613,\n\t\t\t\"linea_id\": 46,\n\t\t\t\"fecha\": null,\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 3230614,\n\t\t\t\"linea_id\": 48,\n\t\t\t\"fecha\": null,\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t}\n\t],\n\t\"incidencias_translations\": [\n\t\t{\n\t\t\t\"id\": 8233693,\n\t\t\t\"incidencia_id\": 3230609,\n\t\t\t\"titulo\": \"Ascensores averiados\",\n\t\t\t\"descripcion\": \" Alacant transbordo\",\n\t\t\t\"locale\": \"ES\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233694,\n\t\t\t\"incidencia_id\": 3230609,\n\t\t\t\"titulo\": \"Ascensors avariats\",\n\t\t\t\"descripcion\": \" Alacant transbordament\",\n\t\t\t\"locale\": \"CA\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233695,\n\t\t\t\"incidencia_id\": 3230609,\n\t\t\t\"titulo\": \"Ascensores averiados\",\n\t\t\t\"descripcion\": \"  Alacant transbordo\",\n\t\t\t\"locale\": \"EN\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233696,\n\t\t\t\"incidencia_id\": 3230610,\n\t\t\t\"titulo\": \"Ascensores averiados\",\n\t\t\t\"descripcion\": \" Alacant transbordo\",\n\t\t\t\"locale\": \"ES\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233697,\n\t\t\t\"incidencia_id\": 3230610,\n\t\t\t\"titulo\": \"Ascensors avariats\",\n\t\t\t\"descripcion\": \" Alacant transbordament\",\n\t\t\t\"locale\": \"CA\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233698,\n\t\t\t\"incidencia_id\": 3230610,\n\t\t\t\"titulo\": \"Ascensores averiados\",\n\t\t\t\"descripcion\": \"  Alacant transbordo\",\n\t\t\t\"locale\": \"EN\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233699,\n\t\t\t\"incidencia_id\": 3230611,\n\t\t\t\"titulo\": \"Ascensores averiados\",\n\t\t\t\"descripcion\": \" Alacant transbordo\",\n\t\t\t\"locale\": \"ES\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233700,\n\t\t\t\"incidencia_id\": 3230611,\n\t\t\t\"titulo\": \"Ascensors avariats\",\n\t\t\t\"descripcion\": \" Alacant transbordament\",\n\t\t\t\"locale\": \"CA\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233701,\n\t\t\t\"incidencia_id\": 3230611,\n\t\t\t\"titulo\": \"Ascensores averiados\",\n\t\t\t\"descripcion\": \"  Alacant transbordo\",\n\t\t\t\"locale\": \"EN\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233702,\n\t\t\t\"incidencia_id\": 3230612,\n\t\t\t\"titulo\": \"Ascensores averiados\",\n\t\t\t\"descripcion\": \" Alacant transbordo\",\n\t\t\t\"locale\": \"ES\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233703,\n\t\t\t\"incidencia_id\": 3230612,\n\t\t\t\"titulo\": \"Ascensors avariats\",\n\t\t\t\"descripcion\": \" Alacant transbordament\",\n\t\t\t\"locale\": \"CA\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233704,\n\t\t\t\"incidencia_id\": 3230612,\n\t\t\t\"titulo\": \"Ascensores averiados\",\n\t\t\t\"descripcion\": \"  Alacant transbordo\",\n\t\t\t\"locale\": \"EN\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233705,\n\t\t\t\"incidencia_id\": 3230613,\n\t\t\t\"titulo\": \"Ascensor fuera de servicio\",\n\t\t\t\"descripcion\": \" El ascensor de Ayora, andén aeropuerto, fuera de servicio.\",\n\t\t\t\"locale\": \"ES\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233706,\n\t\t\t\"incidencia_id\": 3230613,\n\t\t\t\"titulo\": \"Ascensor fora de servei.\",\n\t\t\t\"descripcion\": \" L'ascensor de Ayora, andana aeroport, fora de servei.\",\n\t\t\t\"locale\": \"CA\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233707,\n\t\t\t\"incidencia_id\": 3230613,\n\t\t\t\"titulo\": \"Ascensor fuera de servicio\",\n\t\t\t\"descripcion\": \"  El ascensor de Ayora, andén aeropuerto, fuera de servicio.\",\n\t\t\t\"locale\": \"EN\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233708,\n\t\t\t\"incidencia_id\": 3230614,\n\t\t\t\"titulo\": \"Ascensor fuera de servicio\",\n\t\t\t\"descripcion\": \" El ascensor de Ayora, andén aeropuerto, fuera de servicio.\",\n\t\t\t\"locale\": \"ES\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233709,\n\t\t\t\"incidencia_id\": 3230614,\n\t\t\t\"titulo\": \"Ascensor fora de servei.\",\n\t\t\t\"descripcion\": \" L'ascensor de Ayora, andana aeroport, fora de servei.\",\n\t\t\t\"locale\": \"CA\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t},\n\t\t{\n\t\t\t\"id\": 8233710,\n\t\t\t\"incidencia_id\": 3230614,\n\t\t\t\"titulo\": \"Ascensor fuera de servicio\",\n\t\t\t\"descripcion\": \"  El ascensor de Ayora, andén aeropuerto, fuera de servicio.\",\n\t\t\t\"locale\": \"EN\",\n\t\t\t\"sede\": \"V\",\n\t\t\t\"created_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"updated_at\": \"2022-05-25 15:01:02\",\n\t\t\t\"deleted_at\": null\n\t\t}\n\t]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}
