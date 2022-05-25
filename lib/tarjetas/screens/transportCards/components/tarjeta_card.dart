@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
-import 'package:metrovalencia_reloaded/tarjetas/models/datos_tarjeta.dart';
+import 'package:metrovalencia_reloaded/tarjetas/models/transport_card_data.dart';
 
 class TarjetaCard extends StatelessWidget {
   const TarjetaCard({Key? key, required this.tarjeta}) : super(key: key);
 
-  final DatosTarjeta tarjeta;
+  final TransportCard tarjeta;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class TarjetaCard extends StatelessWidget {
                           tr('transportCards.card.cardNumber') +
                               tr('symbols.colon'),
                           style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text(' ${maskTarjeta(tarjeta.numeroTarjeta)}')
+                      Text(' ${maskTarjeta(tarjeta.cardNumber)}')
                     ],
                   ),
                   visualDensity: VisualDensity.compact,
@@ -52,7 +52,7 @@ class TarjetaCard extends StatelessWidget {
                                 tr('symbols.colon'),
                             style:
                                 const TextStyle(fontWeight: FontWeight.bold)),
-                        Text(' ${tarjeta.titulo}')
+                        Text(' ${tarjeta.title}')
                       ],
                     ),
                   ),
@@ -61,11 +61,11 @@ class TarjetaCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                            tr('transportCards.card.class') +
+                            tr('transportCards.card.cardClass') +
                                 tr('symbols.colon'),
                             style:
                                 const TextStyle(fontWeight: FontWeight.bold)),
-                        Text(' ${tarjeta.clase}')
+                        Text(' ${tarjeta.cardClass}')
                       ],
                     ),
                   ),
@@ -78,7 +78,7 @@ class TarjetaCard extends StatelessWidget {
                                 tr('symbols.colon'),
                             style:
                                 const TextStyle(fontWeight: FontWeight.bold)),
-                        Text(' ${tarjeta.zona}')
+                        Text(' ${tarjeta.zone}')
                       ],
                     ),
                   ),
@@ -92,13 +92,13 @@ class TarjetaCard extends StatelessWidget {
                             style:
                                 const TextStyle(fontWeight: FontWeight.bold)),
                         Text(
-                          ' ${tarjeta.saldo}',
+                          ' ${tarjeta.balance}',
                         )
                       ],
                     ),
                   ),
                   Visibility(
-                    visible: tarjeta.fechaValidez != null,
+                    visible: tarjeta.validityDate != null,
                     child: Container(
                       margin: const EdgeInsets.only(left: 15, top: 5),
                       child: Row(
@@ -108,14 +108,14 @@ class TarjetaCard extends StatelessWidget {
                                   tr('symbols.colon'),
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold)),
-                          Text(tarjeta.fechaValidez == null
+                          Text(tarjeta.validityDate == null
                               ? ''
                               : ' ' +
                                   DateFormat(
                                           'dd-MM-yyyy',
                                           Localizations.maybeLocaleOf(context)
                                               ?.toLanguageTag())
-                                      .format(tarjeta.fechaValidez!))
+                                      .format(tarjeta.validityDate!))
                         ],
                       ),
                     ),

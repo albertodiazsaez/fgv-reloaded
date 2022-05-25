@@ -1,12 +1,12 @@
-class ResultadoConsultaTarjetaMetrovalencia {
+class MetrovalenciaTransportCard {
   int? status;
   int? error;
   TarjetaMetrovalencia? resultado;
 
-  ResultadoConsultaTarjetaMetrovalencia(
+  MetrovalenciaTransportCard(
       {this.status, this.error, this.resultado});
 
-  ResultadoConsultaTarjetaMetrovalencia.fromJson(Map<String, dynamic> json) {
+  MetrovalenciaTransportCard.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     error = json['error'];
     resultado = json['resultado'] != null

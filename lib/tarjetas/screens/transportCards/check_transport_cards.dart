@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:intl/intl.dart';
 
-import 'package:metrovalencia_reloaded/tarjetas/models/datos_tarjeta.dart';
-import 'package:metrovalencia_reloaded/tarjetas/models/tarjeta_metrovalencia.dart';
-import 'package:metrovalencia_reloaded/tarjetas/screens/components/tarjeta_card.dart';
+import 'package:metrovalencia_reloaded/tarjetas/models/transport_card_data.dart';
+import 'package:metrovalencia_reloaded/tarjetas/models/metrovalencia/metrovalencia_transport_card.dart';
+import 'package:metrovalencia_reloaded/tarjetas/screens/transportCards/components/tarjeta_card.dart';
 
 class ConsultaTarjetas extends StatefulWidget {
   const ConsultaTarjetas({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
   //     filter: {"#": RegExp(r'[0-9]')},
   //     type: MaskAutoCompletionType.lazy);
 
-  Map tarjetasConsultadas = <int, DatosTarjeta>{};
+  Map tarjetasConsultadas = <int, TransportCard>{};
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +91,7 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
                 shrinkWrap: true,
                 itemCount: tarjetasConsultadas.keys.length,
                 itemBuilder: (context, index) {
-                  DatosTarjeta iTarjeta = tarjetasConsultadas[
+                  TransportCard iTarjeta = tarjetasConsultadas[
                       tarjetasConsultadas.keys
                           .toList()
                           .reversed
@@ -122,18 +121,18 @@ class _ConsultaTarjetasState extends State<ConsultaTarjetas> {
       //'http://192.168.98.220:3000/ap18/api/public/es/api/v1/V/tarjetas-transporte/$numeroTarjeta'));
 
       if (response.statusCode == 200) {
-        var tarjetaRecibida = ResultadoConsultaTarjetaMetrovalencia.fromJson(
+        var tarjetaRecibida = MetrovalenciaTransportCard.fromJson(
                 jsonDecode(response.body))
             .resultado;
 
         setState(() {
-          tarjetasConsultadas[int.parse(numeroTarjeta)] = DatosTarjeta(
-              numeroTarjeta: numeroTarjeta,
-              titulo: tarjetaRecibida?.titulo,
-              zona: tarjetaRecibida?.zona,
-              clase: tarjetaRecibida?.clase,
-              saldo: tarjetaRecibida?.saldo,
-              fechaValidez: tarjetaRecibida?.nuevaValidez == null
+          tarjetasConsultadas[int.parse(numeroTarjeta)] = TransportCard(
+              cardNumber: numeroTarjeta,
+              title: tarjetaRecibida?.titulo,
+              zone: tarjetaRecibida?.zona,
+              cardClass: tarjetaRecibida?.clase,
+              balance: tarjetaRecibida?.saldo,
+              validityDate: tarjetaRecibida?.nuevaValidez == null
                   ? null
                   : DateFormat('dd/MM/yyyy')
                       .parse(tarjetaRecibida?.nuevaValidez));

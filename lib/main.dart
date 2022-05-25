@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:metrovalencia_reloaded/tarjetas/screens/consulta_tarjetas.dart';
+import 'package:metrovalencia_reloaded/tarjetas/screens/transportCards/check_transport_cards.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();

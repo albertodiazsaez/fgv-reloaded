@@ -10,7 +10,7 @@
         "card": {
             "cardNumber": "Número Tarjeta",
             "title": "Título",
-            "class": "Clase",
+            "cardClass": "Clase",
             "zone": "Zona",
             "balance": "Saldo",
             "validityDate": "Fecha Validez"
