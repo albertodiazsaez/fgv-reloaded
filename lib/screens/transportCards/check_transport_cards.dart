@@ -112,6 +112,8 @@ class _CheckTransportCardsState extends State<CheckTransportCards> {
   }
 
   void obtenerDatosTarjetaMetrovalencia(String transportCardNumber) async {
+    transportCardNumber = transportCardNumber.replaceAll(' ', '');
+
     FocusManager.instance.primaryFocus?.unfocus();
     LoaderUtils.setLoader();
 
@@ -123,15 +125,12 @@ class _CheckTransportCardsState extends State<CheckTransportCards> {
         checkedTransportCards[int.parse(transportCardNumber)] =
             resultTransportCard;
       });
-    } catch (e) {      
+    } catch (e) {
       SnackbarUtils.textSnackbar(context, e.toString());
-
     } finally {
       LoaderUtils.dismissLoader();
     }
   }
-
-
 
   @override
   void dispose() {

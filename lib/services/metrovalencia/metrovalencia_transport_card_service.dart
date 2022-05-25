@@ -21,7 +21,6 @@ var url = Environment.getFgvUrl()+'tarjetas-transporte/';
 
   @override
   Future<TransportCard> getTransportCard(String transportCardNumber) async {
-    transportCardNumber = transportCardNumber.replaceAll(' ', '');
     try {
       final response = await http
           .get(Uri.parse(url+transportCardNumber))
