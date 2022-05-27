@@ -1,3 +1,5 @@
+import 'package:metrovalencia_reloaded/models/line.dart';
+
 class Station {
   //ID FGV
   int id;
@@ -7,6 +9,7 @@ class Station {
   double longitude;
   String adress;
   String headquarters;
+  List<Line>? lines;
 
   Station(
     this.id,
@@ -16,5 +19,6 @@ class Station {
     this.longitude,
     this.headquarters,
     this.adress,
+    [this.lines]
   );
 }

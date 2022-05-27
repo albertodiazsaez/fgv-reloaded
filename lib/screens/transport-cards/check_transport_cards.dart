@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:metrovalencia_reloaded/models/transport_card_data.dart';
 import 'package:metrovalencia_reloaded/screens/transport-cards/components/transport_card_card.dart';
-import 'package:metrovalencia_reloaded/services/fgv/service_locator.dart';
+import 'package:metrovalencia_reloaded/services/service_locator.dart';
 import 'package:metrovalencia_reloaded/services/fgv/fgv_transport_card_service.dart';
 import 'package:metrovalencia_reloaded/utils/loader_utils.dart';
 import 'package:metrovalencia_reloaded/utils/snackbar_utils.dart';

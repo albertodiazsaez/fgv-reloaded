@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:metrovalencia_reloaded/models/transport_card_data.dart';
 
 class TarjetaCard extends StatelessWidget {
-  const TarjetaCard({Key? key, required this.tarjeta}) : super(key: key);
+  const TarjetaCard(this.tarjeta, {Key? key}) : super(key: key);
 
   final TransportCard tarjeta;
 
