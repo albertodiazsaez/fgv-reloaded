@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:metrovalencia_reloaded/utils/hex_color.dart';
 
 class LineNumber extends StatelessWidget {
@@ -19,7 +18,7 @@ class LineNumber extends StatelessWidget {
           border: Border.all(color: Colors.transparent),
           borderRadius: BorderRadius.all(Radius.circular(size / 5))),
       alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(horizontal: 2.5),
+      margin: const EdgeInsets.only(right: 5),
       height: size,
       width: size,
       child: FittedBox(
