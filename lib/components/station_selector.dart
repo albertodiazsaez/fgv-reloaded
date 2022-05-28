@@ -8,14 +8,17 @@ import 'package:metrovalencia_reloaded/services/service_locator.dart';
 import 'package:metrovalencia_reloaded/utils/loader_utils.dart';
 import 'package:metrovalencia_reloaded/utils/snackbar_utils.dart';
 
-class Stations extends StatefulWidget {
-  const Stations({Key? key}) : super(key: key);
+class StationSelector extends StatefulWidget {
+  const StationSelector(this.onStationSelected, {Key? key}) : super(key: key);
 
   @override
-  State<Stations> createState() => _StationsState();
+  State<StationSelector> createState() => _StationSelectorState();
+
+  final Function(Station clickedStation) onStationSelected;
 }
+
 // TODO: Separate list from component to reuse in (for example) selecting station in timetable selection.
-class _StationsState extends State<Stations> {
+class _StationSelectorState extends State<StationSelector> {
   List<Station> stationsList = [];
   List<Station> filteredStationsList = [];
 
@@ -61,7 +64,13 @@ class _StationsState extends State<Stations> {
             shrinkWrap: true,
             itemCount: filteredStationsList.length,
             itemBuilder: (context, index) {
-              return StationCard(filteredStationsList.elementAt(index));
+              Station stationToShow = filteredStationsList.elementAt(index);
+              return GestureDetector(
+                onTap: () => widget.onStationSelected(stationToShow),
+                child: StationCard(
+                  stationToShow,
+                ),
+              );
             },
           ),
         )
@@ -72,7 +81,9 @@ class _StationsState extends State<Stations> {
   _filterStation(String searchInput) {
     setState(() {
       filteredStationsList = stationsList
-          .where((stationSearch) => removeDiacritics(stationSearch.name.toLowerCase()).contains(removeDiacritics(searchInput.toLowerCase())))
+          .where((stationSearch) =>
+              removeDiacritics(stationSearch.name.toLowerCase())
+                  .contains(removeDiacritics(searchInput.toLowerCase())))
           .toList();
     });
   }
