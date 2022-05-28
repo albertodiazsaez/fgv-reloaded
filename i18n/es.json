@@ -17,7 +17,8 @@
         }
     },
     "stations": {
-        "title": "Estaciones"
+        "title": "Estaciones",
+        "searchStation": "Buscar Estación"
     },
     "symbols": {
         "colon": ":"
