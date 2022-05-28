@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
-class MetrovalenciaServerException implements Exception {
+class FgvServerException implements Exception {
 
   @override
   String toString() {

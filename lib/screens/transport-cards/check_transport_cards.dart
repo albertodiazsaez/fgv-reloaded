@@ -1,14 +1,11 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:metrovalencia_reloaded/models/transport_card_data.dart';
-import 'package:metrovalencia_reloaded/screens/transportCards/components/transport_card_card.dart';
-import 'package:metrovalencia_reloaded/service_locator.dart';
-import 'package:metrovalencia_reloaded/services/metrovalencia/metrovalencia_transport_card_service.dart';
+import 'package:metrovalencia_reloaded/screens/transport-cards/components/transport_card_card.dart';
+import 'package:metrovalencia_reloaded/services/service_locator.dart';
+import 'package:metrovalencia_reloaded/services/fgv/fgv_transport_card_service.dart';
 import 'package:metrovalencia_reloaded/utils/loader_utils.dart';
 import 'package:metrovalencia_reloaded/utils/snackbar_utils.dart';
 
@@ -23,8 +20,8 @@ class _CheckTransportCardsState extends State<CheckTransportCards> {
   final GlobalKey<FormState> _consultaTarjetaFormKey = GlobalKey<FormState>();
   final inputTarjetaController = TextEditingController();
 
-  AbstractMetrovalenciaTransportCardService transportCardService =
-      getIt<AbstractMetrovalenciaTransportCardService>();
+  AbstractFgvTransportCardService transportCardService =
+      getIt<AbstractFgvTransportCardService>();
 
   // final inputTarjetaMask = MaskTextInputFormatter(
   //     mask: '#### #### ####',
@@ -49,7 +46,7 @@ class _CheckTransportCardsState extends State<CheckTransportCards> {
                         Flexible(
                           child: TextFormField(
                             onFieldSubmitted: (value) {
-                              obtenerDatosTarjetaMetrovalencia(
+                              obtenerDatosTarjetaFgv(
                                   inputTarjetaController.text);
                             },
                             textInputAction: TextInputAction.go,
@@ -81,7 +78,7 @@ class _CheckTransportCardsState extends State<CheckTransportCards> {
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: ElevatedButton(
                             onPressed: () => {
-                              obtenerDatosTarjetaMetrovalencia(
+                              obtenerDatosTarjetaFgv(
                                   inputTarjetaController.text),
                             },
                             child: Text(tr('transportCards.checkCard')),
@@ -111,7 +108,7 @@ class _CheckTransportCardsState extends State<CheckTransportCards> {
         ));
   }
 
-  void obtenerDatosTarjetaMetrovalencia(String transportCardNumber) async {
+  void obtenerDatosTarjetaFgv(String transportCardNumber) async {
     transportCardNumber = transportCardNumber.replaceAll(' ', '');
 
     FocusManager.instance.primaryFocus?.unfocus();
