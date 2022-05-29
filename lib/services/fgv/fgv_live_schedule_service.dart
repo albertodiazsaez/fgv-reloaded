@@ -7,7 +7,7 @@ import 'package:metrovalencia_reloaded/environments/environment.dart';
 import 'package:metrovalencia_reloaded/exceptions/fgv_server_exception.dart';
 import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_live_schedule.dart';
-import 'package:metrovalencia_reloaded/models/fgv/live_schedule.dart';
+import 'package:metrovalencia_reloaded/models/live_schedule.dart';
 
 abstract class AbstractFgvLiveScheduleService {
   Future<List<LiveSchedule>> getLiveSchedules(int stationId);
@@ -39,7 +39,7 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
             liveSchedulesList.add(LiveSchedule(
               fgvLiveSchedule.lineId,
               train.destino,
-              train.seconds,
+              Duration(seconds: train.seconds),
               train.latitude,
               train.longitude,
               train.meters,

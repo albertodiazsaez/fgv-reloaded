@@ -26,7 +26,16 @@
             "many": "Líneas",
             "other": "Líneas"
         }, 
-        "adress": "Dirección"
+        "minute": {
+            "zero": "Minutos",
+            "one": "Minuto",
+            "many": "Minutos",
+            "other": "Minutos"
+        },
+        "adress": "Dirección",
+        "destination": "Destino",
+        "arrival": "Llega en",
+        "occupancy": "Ocupación"
     },
     "symbols": {
         "colon": ":"

@@ -4,13 +4,13 @@ class LiveSchedule {
   double? latitude;
   double? longitude;
   int? meters;
-  int seconds;
+  Duration timeToArrival;
   int? capacity;
 
   LiveSchedule(
     this.lineId,
     this.destination,
-    this.seconds, [
+    this.timeToArrival, [
     this.latitude,
     this.longitude,
     this.meters,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:metrovalencia_reloaded/components/line_number.dart';
-import 'package:metrovalencia_reloaded/models/fgv/live_schedule.dart';
+import 'package:metrovalencia_reloaded/models/live_schedule.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/services/fgv/fgv_live_schedule_service.dart';
 import 'package:metrovalencia_reloaded/services/service_locator.dart';
@@ -89,20 +89,77 @@ class _StationScreenState extends State<StationScreen> {
           ),
         ),
         Card(
-          child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: liveScheduleList.length,
-              itemBuilder: (context, index) {
-                LiveSchedule liveScheduleToShow =
-                    liveScheduleList.elementAt(index);
-                return (Row(
-                  children: [
-                    Text(liveScheduleToShow.destination),
-                    Text(' ' + liveScheduleToShow.seconds.toString())
-                    ],
-                ));
-              }),
-        )
+            child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 10,
+          ),
+          child: Table(
+            columnWidths: const <int, TableColumnWidth>{
+              0: FlexColumnWidth(),
+              1: IntrinsicColumnWidth(),
+              2: IntrinsicColumnWidth()
+            },
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: <TableRow>[
+              TableRow(
+                children: [
+                  Container(
+                    child: Text(
+                      tr('station.destination'),
+                      textScaleFactor: 1.2,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      tr('station.arrival'),
+                      textScaleFactor: 1.2,
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      tr('station.occupancy'),
+                      textScaleFactor: 1.2,
+                    ),
+                  ),
+                ],
+              ),
+              for (var liveScheduletoShow in liveScheduleList)
+                TableRow(children: <Widget>[
+                  Container(
+                    child: Text(liveScheduletoShow.destination),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      children: [
+                        Text(
+                          liveScheduletoShow.timeToArrival.inMinutes.toString(),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(left: 3),
+                            child: Text('station.minute'.plural(
+                                liveScheduletoShow.timeToArrival.inMinutes))),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Visibility(
+                        visible: liveScheduletoShow.capacity != null,
+                        child: LinearProgressIndicator(
+                          value: double.parse(
+                                  liveScheduletoShow.capacity != null
+                                      ? liveScheduletoShow.capacity.toString()
+                                      : '0') /
+                              100,
+                        )),
+                  ),
+                ])
+            ],
+          ),
+        ))
       ],
     );
   }
