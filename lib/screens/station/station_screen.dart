@@ -95,10 +95,11 @@ class _StationScreenState extends State<StationScreen> {
               itemBuilder: (context, index) {
                 LiveSchedule liveScheduleToShow =
                     liveScheduleList.elementAt(index);
-                return (Column(
+                return (Row(
                   children: [
-                    Text('PRUEBA'),
-                    Text(liveScheduleToShow.destination)],
+                    Text(liveScheduleToShow.destination),
+                    Text(' ' + liveScheduleToShow.seconds.toString())
+                    ],
                 ));
               }),
         )
