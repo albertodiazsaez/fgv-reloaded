@@ -19,7 +19,15 @@
     "stations": {
         "title": "Estaciones",
         "searchStation": "Buscar Estación"
-    },    
+    },
+    "station": {
+        "line": {
+            "one": "Línea",
+            "many": "Líneas",
+            "other": "Líneas"
+        }, 
+        "adress": "Dirección"
+    },
     "symbols": {
         "colon": ":"
     },
