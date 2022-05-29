@@ -34,8 +34,9 @@
         },
         "adress": "Dirección",
         "destination": "Destino",
-        "arrival": "Llega en",
-        "occupancy": "Ocupación"
+        "departure": "Sale en",
+        "occupancy": "Ocupación",
+        "arrivalsSubtitle": "Próximas Salidas"
     },
     "symbols": {
         "colon": ":"
