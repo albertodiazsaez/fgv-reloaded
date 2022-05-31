@@ -33,7 +33,7 @@ dependencies:
   easy_mask: ^2.0.1
   flutter_easyloading: ^3.0.5
   flutter_spinkit: ^5.1.0
-
+  percent_indicator: ^4.0.1
   intl: ^0.17.0
   flutter:
     sdk: flutter

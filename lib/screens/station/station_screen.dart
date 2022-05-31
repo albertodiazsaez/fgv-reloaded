@@ -1,8 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrovalencia_reloaded/components/line_number.dart';
 import 'package:metrovalencia_reloaded/models/live_schedule.dart';
@@ -11,6 +8,7 @@ import 'package:metrovalencia_reloaded/services/fgv/fgv_live_schedule_service.da
 import 'package:metrovalencia_reloaded/services/service_locator.dart';
 import 'package:metrovalencia_reloaded/utils/hex_color.dart';
 import 'package:metrovalencia_reloaded/utils/snackbar_utils.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class StationScreen extends StatefulWidget {
   const StationScreen(this.station, {Key? key}) : super(key: key);
@@ -52,6 +50,18 @@ class _StationScreenState extends State<StationScreen> {
     } catch (e) {
       SnackbarUtils.textSnackbar(context, e.toString());
     }
+  }
+
+  _getCapacityColor(int capacity) {
+    var result = Colors.green;
+
+    if (capacity > 50) {
+      result = Colors.yellow;
+    } else if (capacity > 80) {
+      result = Colors.red;
+    }
+
+    return result;
   }
 
   @override
@@ -97,7 +107,7 @@ class _StationScreenState extends State<StationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  tr('station.adress'),
+                  tr('station.address'),
                   textScaleFactor: 1.2,
                 ),
                 Text(
@@ -141,7 +151,7 @@ class _StationScreenState extends State<StationScreen> {
                     columnWidths: const <int, TableColumnWidth>{
                       0: FlexColumnWidth(),
                       1: IntrinsicColumnWidth(),
-                      2: IntrinsicColumnWidth()
+                      2: IntrinsicColumnWidth(),
                     },
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: <TableRow>[
@@ -151,6 +161,7 @@ class _StationScreenState extends State<StationScreen> {
                             child: Text(
                               tr('station.destination'),
                               textScaleFactor: 1.1,
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           Container(
@@ -158,12 +169,14 @@ class _StationScreenState extends State<StationScreen> {
                             child: Text(
                               tr('station.departure'),
                               textScaleFactor: 1.1,
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           Container(
                             child: Text(
                               tr('station.occupancy'),
                               textScaleFactor: 1.1,
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ],
@@ -171,29 +184,50 @@ class _StationScreenState extends State<StationScreen> {
                       for (var liveScheduletoShow in liveScheduleList)
                         TableRow(children: <Widget>[
                           Container(
-                            child: Text(liveScheduletoShow.destination),
+                            margin: EdgeInsets.symmetric(vertical: 2.5),
+                            child: Row(
+                              children: [
+                                LineNumber(liveScheduletoShow.lineId,
+                                    HexColor(liveScheduletoShow.lineColor), 25),
+                                Flexible(
+                                  child: Text(
+                                    liveScheduletoShow.destination,
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 15),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(
                                   liveScheduletoShow.timeToArrival.inMinutes
                                       .toString(),
+                                  //   textAlign: TextAlign.end,
                                 ),
                                 Container(
-                                    margin: const EdgeInsets.only(left: 3),
-                                    child: Text('station.minute'.plural(
-                                        liveScheduletoShow
-                                            .timeToArrival.inMinutes))),
+                                  margin: const EdgeInsets.only(left: 3),
+                                  child: Text(
+                                    'station.minute'.plural(
+                                      liveScheduletoShow
+                                          .timeToArrival.inMinutes,
+                                    ),
+                                    // textAlign: TextAlign.end,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                           Container(
                             child: Visibility(
                                 visible: liveScheduletoShow.capacity != null,
-                                child: LinearProgressIndicator(
-                                  value: double.parse(
+                                child: LinearPercentIndicator(
+                                  progressColor: _getCapacityColor(
+                                      liveScheduletoShow.capacity ?? 0),
+                                  percent: double.parse(
                                           liveScheduletoShow.capacity != null
                                               ? liveScheduletoShow.capacity
                                                   .toString()
@@ -204,7 +238,7 @@ class _StationScreenState extends State<StationScreen> {
                         ])
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

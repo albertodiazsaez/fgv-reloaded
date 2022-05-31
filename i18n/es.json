@@ -27,12 +27,12 @@
             "other": "Líneas"
         }, 
         "minute": {
-            "zero": "Minutos",
-            "one": "Minuto",
-            "many": "Minutos",
-            "other": "Minutos"
+            "zero": "Min.",
+            "one": "Min.",
+            "many": "Min.",
+            "other": "Min."
         },
-        "adress": "Dirección",
+        "address": "Dirección",
         "destination": "Destino",
         "departure": "Sale en",
         "occupancy": "Ocupación",

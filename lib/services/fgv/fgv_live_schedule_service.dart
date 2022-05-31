@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:metrovalencia_reloaded/environments/environment.dart';
 import 'package:metrovalencia_reloaded/exceptions/fgv_server_exception.dart';
 import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
+import 'package:metrovalencia_reloaded/models/fgv/fgv_line.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_live_schedule.dart';
 import 'package:metrovalencia_reloaded/models/live_schedule.dart';
 
@@ -14,10 +15,10 @@ abstract class AbstractFgvLiveScheduleService {
 }
 
 class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
+  var url = Environment.getFgvUrl() + 'horarios-prevision/';
+  var linesUrl = Environment.getFgvUrl() + 'lineas';
   @override
   Future<List<LiveSchedule>> getLiveSchedules(int stationId) async {
-    var url = Environment.getFgvUrl() + 'horarios-prevision/';
-
     try {
       final response = await http
           .get(Uri.parse(url + stationId.toString()))
@@ -26,11 +27,11 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
       if (response.statusCode == 200) {
         Iterable rawFgvLiveSchedules = jsonDecode(response.body);
         List<FgvLiveSchedule> fgvLiveSchedules = List<FgvLiveSchedule>.from(
-          rawFgvLiveSchedules.map((model) => FgvLiveSchedule.fromJson(model))
-        );
-            
+            rawFgvLiveSchedules
+                .map((model) => FgvLiveSchedule.fromJson(model)));
 
         List<LiveSchedule> liveSchedulesList = [];
+        List<FgvLine> fgvLines = await _getFgvLines();
 
         for (var fgvLiveSchedule in fgvLiveSchedules) {
           var trainsToCheck = fgvLiveSchedule.trains ?? [];
@@ -38,6 +39,7 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
           for (var train in trainsToCheck) {
             liveSchedulesList.add(LiveSchedule(
               fgvLiveSchedule.lineId,
+              fgvLines.where((element) => element.lineaIdFgv == train.lineId).first.color,
               train.destino,
               Duration(seconds: train.seconds),
               train.latitude,
@@ -51,6 +53,29 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
         return liveSchedulesList;
       } else {
         var jsonResponse = jsonDecode(response.body);
+        var errorResponse =
+            jsonResponse['resultado'] ?? tr('errors.unknownError');
+
+        throw PlainMessageException(errorResponse);
+      }
+    } on TimeoutException catch (e) {
+      throw FgvServerException();
+    }
+  }
+
+  _getFgvLines() async {
+    try {
+      final linesResponse = await http
+          .get(Uri.parse(linesUrl))
+          .timeout(const Duration(seconds: 10));
+
+      if (linesResponse.statusCode == 200) {
+        Iterable rawLines = jsonDecode(linesResponse.body);
+        List<FgvLine> fgvLines = List<FgvLine>.from(
+            rawLines.map((model) => FgvLine.fromJson(model)));
+        return fgvLines;
+      } else {
+        var jsonResponse = jsonDecode(linesResponse.body);
         var errorResponse =
             jsonResponse['resultado'] ?? tr('errors.unknownError');
 

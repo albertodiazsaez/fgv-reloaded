@@ -1,5 +1,6 @@
 class LiveSchedule {
   int lineId;
+  String lineColor;
   String destination;
   double? latitude;
   double? longitude;
@@ -9,6 +10,7 @@ class LiveSchedule {
 
   LiveSchedule(
     this.lineId,
+    this.lineColor,
     this.destination,
     this.timeToArrival, [
     this.latitude,
