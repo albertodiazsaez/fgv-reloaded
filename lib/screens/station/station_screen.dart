@@ -52,15 +52,19 @@ class _StationScreenState extends State<StationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
       children: [
-        StationLines(station: widget.station),
-        StationAdress(station: widget.station),
-        DeparturesCard(
-          showDepartures: showDepartures,
-          liveDepartures: liveDepartures,
-          onDeparturesRefresh: loadLiveDepartures,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            StationLines(station: widget.station),
+            StationAdress(station: widget.station),
+            DeparturesCard(
+              showDepartures: showDepartures,
+              liveDepartures: liveDepartures,
+              onDeparturesRefresh: loadLiveDepartures,
+            ),
+          ],
         ),
       ],
     );
