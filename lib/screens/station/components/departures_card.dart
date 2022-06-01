@@ -76,7 +76,7 @@ class DeparturesCard extends StatelessWidget {
                     TableRow(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                          padding: const EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
                           child: Text(
                             tr('station.destination'),
                             textScaleFactor: 1.1,
@@ -84,7 +84,7 @@ class DeparturesCard extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                          padding: const EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
                           child: Text(
                             tr('station.departure'),
                             textScaleFactor: 1.1,
@@ -92,7 +92,7 @@ class DeparturesCard extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                          padding: const EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
                           child: Text(
                             tr('station.occupancy'),
                             textScaleFactor: 1.1,
@@ -105,7 +105,7 @@ class DeparturesCard extends StatelessWidget {
                       TableRow(
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.symmetric(vertical: 2),
+                            padding: const EdgeInsets.symmetric(vertical: 2.5),
                             margin: const EdgeInsets.symmetric(vertical: 2.5),
                             child: Row(
                               children: [
@@ -131,7 +131,7 @@ class DeparturesCard extends StatelessWidget {
                                   //   textAlign: TextAlign.end,
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.only(left: 3),
+                                  margin: const EdgeInsets.only(left: 2.5),
                                   child: Text(
                                     'station.minute'.plural(
                                       liveScheduletoShow
