@@ -50,7 +50,7 @@ class DeparturesCard extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary),
               child: Visibility(
                 visible: liveDepartures.isNotEmpty,
-                replacement: Container(
+                replacement: SizedBox(
                   width: double.infinity,
                   child: Text(
                     tr('station.noDeparturesAvaiable'),
