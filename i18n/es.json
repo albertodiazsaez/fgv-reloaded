@@ -36,7 +36,7 @@
         "destination": "Destino",
         "departure": "Sale en",
         "occupancy": "Ocupación",
-        "arrivalsSubtitle": "Próximas Salidas"
+        "departuresSubtitle": "Próximas Salidas"
     },
     "symbols": {
         "colon": ":"

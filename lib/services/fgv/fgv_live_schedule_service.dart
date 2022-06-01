@@ -8,17 +8,17 @@ import 'package:metrovalencia_reloaded/exceptions/fgv_server_exception.dart';
 import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_line.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_live_schedule.dart';
-import 'package:metrovalencia_reloaded/models/live_schedule.dart';
+import 'package:metrovalencia_reloaded/models/live_departures.dart';
 
 abstract class AbstractFgvLiveScheduleService {
-  Future<List<LiveSchedule>> getLiveSchedules(int stationId);
+  Future<List<LiveDepartures>> getLiveSchedules(int stationId);
 }
 
 class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
   var url = Environment.getFgvUrl() + 'horarios-prevision/';
   var linesUrl = Environment.getFgvUrl() + 'lineas';
   @override
-  Future<List<LiveSchedule>> getLiveSchedules(int stationId) async {
+  Future<List<LiveDepartures>> getLiveSchedules(int stationId) async {
     try {
       final response = await http
           .get(Uri.parse(url + stationId.toString()))
@@ -30,14 +30,14 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
             rawFgvLiveSchedules
                 .map((model) => FgvLiveSchedule.fromJson(model)));
 
-        List<LiveSchedule> liveSchedulesList = [];
+        List<LiveDepartures> liveSchedulesList = [];
         List<FgvLine> fgvLines = await _getFgvLines();
 
         for (var fgvLiveSchedule in fgvLiveSchedules) {
           var trainsToCheck = fgvLiveSchedule.trains ?? [];
 
           for (var train in trainsToCheck) {
-            liveSchedulesList.add(LiveSchedule(
+            liveSchedulesList.add(LiveDepartures(
               fgvLiveSchedule.lineId,
               fgvLines.where((element) => element.lineaIdFgv == train.lineId).first.color,
               train.destino,

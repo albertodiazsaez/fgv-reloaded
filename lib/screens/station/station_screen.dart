@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrovalencia_reloaded/components/line_number.dart';
-import 'package:metrovalencia_reloaded/models/live_schedule.dart';
+import 'package:metrovalencia_reloaded/models/live_departures.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/services/fgv/fgv_live_schedule_service.dart';
 import 'package:metrovalencia_reloaded/services/service_locator.dart';
@@ -22,9 +22,9 @@ class StationScreen extends StatefulWidget {
 class _StationScreenState extends State<StationScreen> {
   AbstractFgvLiveScheduleService liveScheduleService =
       getIt<AbstractFgvLiveScheduleService>();
-  List<LiveSchedule> liveScheduleList = [];
+  List<LiveDepartures> liveScheduleList = [];
 
-  bool arrivalsLoaded = false;
+  bool departuresLoaded = false;
 
   @override
   void initState() {
@@ -35,13 +35,13 @@ class _StationScreenState extends State<StationScreen> {
   void loadLiveSchedules() {
     try {
       setState(() {
-        arrivalsLoaded = false;
+        departuresLoaded = false;
         liveScheduleService.getLiveSchedules(widget.station.id).then(
               (liveSchedules) => {
                 setState(
                   () => {
                     liveScheduleList = liveSchedules,
-                    arrivalsLoaded = true,
+                    departuresLoaded = true,
                   },
                 )
               },
@@ -131,7 +131,8 @@ class _StationScreenState extends State<StationScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(tr('station.arrivalsSubtitle'), textScaleFactor: 1.2),
+                    Text(tr('station.departuresSubtitle'),
+                        textScaleFactor: 1.2),
                     IconButton(
                       splashRadius: 15,
                       onPressed: loadLiveSchedules,
@@ -143,10 +144,10 @@ class _StationScreenState extends State<StationScreen> {
                   ],
                 ),
                 Visibility(
-                  visible: arrivalsLoaded,
-                  replacement: const SpinKitFadingCircle(
-                      // TODO: Usar color del tema
-                      color: Colors.red),
+                  visible: departuresLoaded,
+                  replacement: SpinKitFadingCircle(
+                      
+                      color: Theme.of(context).colorScheme.primary),
                   child: Table(
                     columnWidths: const <int, TableColumnWidth>{
                       0: FlexColumnWidth(),

@@ -1,4 +1,4 @@
-class LiveSchedule {
+class LiveDepartures {
   int lineId;
   String lineColor;
   String destination;
@@ -8,7 +8,7 @@ class LiveSchedule {
   Duration timeToArrival;
   int? capacity;
 
-  LiveSchedule(
+  LiveDepartures(
     this.lineId,
     this.lineColor,
     this.destination,
