@@ -19,7 +19,26 @@
     "stations": {
         "title": "Estaciones",
         "searchStation": "Buscar Estación"
-    },    
+    },
+    "station": {
+        "line": {
+            "one": "Línea",
+            "many": "Líneas",
+            "other": "Líneas"
+        }, 
+        "minute": {
+            "zero": "Min.",
+            "one": "Min.",
+            "many": "Min.",
+            "other": "Min."
+        },
+        "address": "Dirección",
+        "destination": "Destino",
+        "departure": "Sale en",
+        "occupancy": "Ocupación",
+        "departuresSubtitle": "Próximas Salidas",
+        "noDeparturesAvaiable": "No hay salidas disponibles"
+    },
     "symbols": {
         "colon": ":"
     },
