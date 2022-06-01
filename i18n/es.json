@@ -36,7 +36,8 @@
         "destination": "Destino",
         "departure": "Sale en",
         "occupancy": "Ocupación",
-        "departuresSubtitle": "Próximas Salidas"
+        "departuresSubtitle": "Próximas Salidas",
+        "noDeparturesAvaiable": "No hay salidas disponibles"
     },
     "symbols": {
         "colon": ":"

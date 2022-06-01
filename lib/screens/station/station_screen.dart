@@ -52,21 +52,30 @@ class _StationScreenState extends State<StationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return RefreshIndicator(
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
           children: [
-            StationLines(station: widget.station),
-            StationAdress(station: widget.station),
-            DeparturesCard(
-              showDepartures: showDepartures,
-              liveDepartures: liveDepartures,
-              onDeparturesRefresh: loadLiveDepartures,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                StationLines(station: widget.station),
+                StationAdress(station: widget.station),
+                DeparturesCard(
+                  showDepartures: showDepartures,
+                  liveDepartures: liveDepartures,
+                  onDeparturesRefresh: loadLiveDepartures,
+                ),
+              ],
             ),
           ],
         ),
-      ],
-    );
+        onRefresh: () {
+          return Future<void>(
+            () => {
+              loadLiveDepartures(),
+            },
+          );
+        });
   }
 }
