@@ -16,9 +16,8 @@ class Timetable {
     this.carbonFootprint,
     this.duration,
     this.distance,
-    this.transfers
-  )
-
+    this.transfers,
+  );
 }
 
 class Transfer {
@@ -31,7 +30,6 @@ class Transfer {
     this.originStation,
     this.destinationStation,
     this.possibleDestinations,
-    this.departures
-  )
-
+    this.departures,
+  );
 }
