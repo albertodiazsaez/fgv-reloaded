@@ -37,6 +37,19 @@ class HomeScreen extends StatelessWidget {
                     ))),
                 child: Text(tr('stations.title'))),
           ),
+          Container(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+                onPressed: (() => Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) =>
+                          const RouteTimetable(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                    ))),
+                child: Text(tr('timetable.title'))),
+          ),
         ],
       ),
     );

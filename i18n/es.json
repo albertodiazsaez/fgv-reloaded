@@ -39,6 +39,11 @@
         "departuresSubtitle": "Próximas Salidas",
         "noDeparturesAvaiable": "No hay salidas disponibles"
     },
+    "timetable": {
+        "title": "Horarios",
+        "selectOriginStation": "Selecciona estación de origen",
+        "selectDestinationStation": "Selecciona estación de destino"
+    },
     "symbols": {
         "colon": ":"
     },

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/screens/station/station_screen.dart';
 import 'package:metrovalencia_reloaded/screens/stations/stations_screen.dart';
+import 'package:metrovalencia_reloaded/screens/timetable/timetable_screen.dart';
 import 'package:metrovalencia_reloaded/screens/transport-cards/check_transport_cards.dart';
 
 class RouteCheckTransportCards extends StatelessWidget {
@@ -36,8 +37,19 @@ class RouteStation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(station.name)),
+      appBar: AppBar(title: Text(tr('timetable.title'))),
       body: StationScreen(station),
+    );
+  }
+}
+
+class RouteTimetable extends StatelessWidget {
+  const RouteTimetable({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(tr('timetable.title'))),
+      body: const TimetableScreen(),
     );
   }
 }
