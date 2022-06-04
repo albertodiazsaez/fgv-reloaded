@@ -13,8 +13,16 @@ class TimetableScreen extends StatefulWidget {
 class _TimetableScreenState extends State<TimetableScreen> {
   final _timetableForm = GlobalKey<FormState>();
 
+  var dateController = TextEditingController();
+  var originStationController = TextEditingController();
+  var destinationStationController = TextEditingController();
+
+  DateTime currentDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
+    this.dateController.text = _parseDate(currentDate);
+
     return Column(
       children: [
         Container(
@@ -29,6 +37,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     Container(
                       margin: EdgeInsets.all(5),
                       child: TextFormField(
+                        controller: originStationController,
                         showCursor: false,
                         readOnly: true,
                         decoration: InputDecoration(
@@ -39,6 +48,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     Container(
                       margin: EdgeInsets.all(5),
                       child: TextFormField(
+                        controller: destinationStationController,
                         showCursor: false,
                         readOnly: true,
                         decoration: InputDecoration(
@@ -47,15 +57,60 @@ class _TimetableScreenState extends State<TimetableScreen> {
                       ),
                     ),
                     Container(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(0000),
-                              lastDate: DateTime(9999));
-                        },
-                        child: Text('FEEEECHA'),
+                      margin: EdgeInsets.all(5),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () => {
+                              currentDate = currentDate.subtract(
+                                Duration(days: 1),
+                              ),
+                              dateController.text = _parseDate(currentDate)
+                            },
+                            icon: Icon(Icons.chevron_left),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 15),
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: dateController,
+                                onTap: () => {
+                                  showDatePicker(
+                                    context: context,
+                                    initialDate: currentDate,
+                                    firstDate: DateTime(0000),
+                                    lastDate: DateTime(9999),
+                                  ).then(
+                                    (value) => {
+                                      currentDate = value!,
+                                      dateController.text =
+                                          _parseDate(currentDate),
+                                    },
+                                  ),
+                                },
+                                showCursor: false,
+                                readOnly: true,
+                                decoration: InputDecoration(
+                                  hintText: tr('timetable.selectDate'),
+                                ),
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => {
+                              currentDate = currentDate.add(
+                                Duration(days: 1),
+                              ),
+                              dateController.text = _parseDate(currentDate)
+                            },
+                            icon: Icon(Icons.chevron_right),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text(tr('station.lookUp')),
+                          )
+                        ],
                       ),
                     )
                   ],
@@ -66,5 +121,11 @@ class _TimetableScreenState extends State<TimetableScreen> {
         )
       ],
     );
+  }
+
+  String _parseDate(DateTime? value) {
+    String dateParsed =
+        DateFormat('E dd-MM-yyyy', context.locale.toString()).format(value!);
+    return dateParsed[0].toUpperCase() + dateParsed.substring(1);
   }
 }

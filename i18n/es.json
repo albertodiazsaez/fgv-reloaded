@@ -37,12 +37,14 @@
         "departure": "Sale en",
         "occupancy": "Ocupación",
         "departuresSubtitle": "Próximas Salidas",
-        "noDeparturesAvaiable": "No hay salidas disponibles"
+        "noDeparturesAvaiable": "No hay salidas disponibles",
+        "lookUp": "Consultar"
     },
     "timetable": {
         "title": "Horarios",
-        "selectOriginStation": "Selecciona estación de origen",
-        "selectDestinationStation": "Selecciona estación de destino"
+        "selectOriginStation": "Elige estación de origen",
+        "selectDestinationStation": "Elige estación de destino",
+        "selectDate": "Elige la fecha"
     },
     "symbols": {
         "colon": ":"
