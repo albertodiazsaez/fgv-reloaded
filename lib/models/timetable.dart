@@ -23,7 +23,7 @@ class Timetable {
 class Transfer {
   Station originStation;
   Station destinationStation;
-  String possibleDestinations;
+  List<String> possibleDestinations;
   Map<int, List<String>> departures;
 
   Transfer(

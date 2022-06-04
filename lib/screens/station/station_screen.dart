@@ -34,7 +34,7 @@ class _StationScreenState extends State<StationScreen> {
     try {
       setState(() {
         showDepartures = false;
-        liveScheduleService.getLiveSchedules(widget.station.id).then(
+        liveScheduleService.getLiveSchedules(widget.station.fgvId).then(
               (liveSchedules) => {
                 setState(
                   () => {

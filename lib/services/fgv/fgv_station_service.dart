@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:diacritic/diacritic.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
 import 'package:metrovalencia_reloaded/environments/environment.dart';
 import 'package:metrovalencia_reloaded/exceptions/fgv_server_exception.dart';
 import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
@@ -10,7 +11,6 @@ import 'package:metrovalencia_reloaded/models/fgv/fgv_line.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_station.dart';
 import 'package:metrovalencia_reloaded/models/line.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
-import 'package:http/http.dart' as http;
 
 abstract class AbstractFgvStationService {
   Future<List<Station>> getStations();
@@ -40,15 +40,7 @@ class FgvStationService implements AbstractFgvStationService {
 
           List<Line> stationLines = _mapFgvLines(fgvLines, fgvStation);
 
-          stations.add(Station(
-              fgvStation.estacionIdFgv,
-              fgvStation.nombre,
-              transbordo,
-              fgvStation.latitud,
-              fgvStation.longitud,
-              fgvStation.sede,
-              fgvStation.direccion,
-              stationLines));
+          stations.add(Station.fgvStationToStation(fgvStation));
         });
 
         stations.sort((a, b) => removeDiacritics(a.name).compareTo(removeDiacritics(b.name)));
