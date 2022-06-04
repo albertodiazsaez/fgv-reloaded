@@ -36,11 +36,10 @@ class FgvStationService implements AbstractFgvStationService {
         List<Station> stations = [];
 
         fgvStations.forEach((fgvStation) {
-          bool transbordo = fgvStation.transbordo == 1;
-
+          
           List<Line> stationLines = _mapFgvLines(fgvLines, fgvStation);
 
-          stations.add(Station.fgvStationToStation(fgvStation));
+          stations.add(Station.fgvStationToStation(fgvStation, stationLines));
         });
 
         stations.sort((a, b) => removeDiacritics(a.name).compareTo(removeDiacritics(b.name)));

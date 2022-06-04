@@ -25,7 +25,9 @@ class Station {
     this.lines,
   ]);
 
-  static fgvStationToStation(FgvStation fgvStation) {
+// TODO: Corregir obtener lineas
+  static fgvStationToStation(FgvStation fgvStation, [List<Line>? stationLines]) {
+
     return Station(
       fgvStation.estacionIdFgv,
       fgvStation.id,
@@ -35,6 +37,7 @@ class Station {
       fgvStation.longitud,
       fgvStation.sede,
       fgvStation.direccion,
+      stationLines ?? []
     );
   }
 }
