@@ -4,7 +4,6 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:metrovalencia_reloaded/environments/environment.dart';
 import 'package:metrovalencia_reloaded/exceptions/fgv_server_exception.dart';
 import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
@@ -12,7 +11,7 @@ import 'package:metrovalencia_reloaded/models/fgv/fgv_online_timetable.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/models/timetable.dart';
 
-abstract class AbstractFgvTransportCardService {
+abstract class AbstractFgvTimetableService {
   Future<Timetable> getTimetable(
     int originStationId,
     int destinationStationId,
@@ -20,7 +19,7 @@ abstract class AbstractFgvTransportCardService {
   );
 }
 
-class FgvTransportCardService implements AbstractFgvTransportCardService {
+class FgvTimetableService implements AbstractFgvTimetableService {
   var url = Environment.getFgvUrl() + 'horarios-online';
 
   @override
