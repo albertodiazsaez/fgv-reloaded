@@ -37,7 +37,7 @@ class RouteStation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(tr('timetable.title'))),
+      appBar: AppBar(title: Text(station.name)),
       body: StationScreen(station),
     );
   }

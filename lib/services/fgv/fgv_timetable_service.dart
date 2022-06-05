@@ -36,7 +36,7 @@ class FgvTimetableService implements AbstractFgvTimetableService {
               <String, String>{
                 'estacion_origen_id': originStationId.toString(),
                 'estacion_destino_id': destinationStationId.toString(),
-                'fecha': DateFormat('dd-MM-yyyy').format(date)
+                'fecha': DateFormat('dd/MM/yyyy').format(date)
               },
             ),
           )
