@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:metrovalencia_reloaded/models/station.dart';
+import 'package:metrovalencia_reloaded/screens/timetable/select-station-page/select_station_page.dart';
 
 class TimetableScreen extends StatefulWidget {
   const TimetableScreen({Key? key}) : super(key: key);
@@ -37,6 +39,10 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     Container(
                       margin: EdgeInsets.all(5),
                       child: TextFormField(
+                        onTap: () => navigateToSelectionScreen(
+                            context,
+                            originStationController,
+                            tr('timetable.originStation')),
                         controller: originStationController,
                         showCursor: false,
                         readOnly: true,
@@ -48,6 +54,11 @@ class _TimetableScreenState extends State<TimetableScreen> {
                     Container(
                       margin: EdgeInsets.all(5),
                       child: TextFormField(
+                        onTap: () => navigateToSelectionScreen(
+                          context,
+                          destinationStationController,
+                          tr('timetable.destinationStation'),
+                        ),
                         controller: destinationStationController,
                         showCursor: false,
                         readOnly: true,
@@ -123,9 +134,44 @@ class _TimetableScreenState extends State<TimetableScreen> {
     );
   }
 
+  Set<Future<Set<String>>> navigateToSelectionScreen(
+      BuildContext context, TextEditingController controller, String title) {
+    return {
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (
+            context,
+            animation1,
+            animation2,
+          ) =>
+              RouteSelectOriginStation(title),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      ).then(
+        (value) => {controller.text = (value as Station).name},
+      )
+    };
+  }
+
   String _parseDate(DateTime? value) {
     String dateParsed =
         DateFormat('E dd-MM-yyyy', context.locale.toString()).format(value!);
     return dateParsed[0].toUpperCase() + dateParsed.substring(1);
+  }
+}
+
+class RouteSelectOriginStation extends StatelessWidget {
+  const RouteSelectOriginStation(this.title, {Key? key}) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: const SelectStationPage(),
+    );
   }
 }

@@ -44,7 +44,9 @@
         "title": "Horarios",
         "selectOriginStation": "Elige estación de origen",
         "selectDestinationStation": "Elige estación de destino",
-        "selectDate": "Elige la fecha"
+        "selectDate": "Elige la fecha",
+        "originStation": "Estación de Origen",
+        "destinationStation": "Estación de Destino"
     },
     "symbols": {
         "colon": ":"
