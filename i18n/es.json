@@ -42,11 +42,10 @@
     },
     "timetable": {
         "title": "Horarios",
-        "selectOriginStation": "Elige estación de origen",
-        "selectDestinationStation": "Elige estación de destino",
         "selectDate": "Elige la fecha",
         "originStation": "Estación de Origen",
-        "destinationStation": "Estación de Destino"
+        "destinationStation": "Estación de Destino",
+        "chooseDifferentStations": "Elige estaciones diferentes como origen y destino"
     },
     "symbols": {
         "colon": ":"

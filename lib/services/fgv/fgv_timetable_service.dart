@@ -29,18 +29,14 @@ class FgvTimetableService implements AbstractFgvTimetableService {
     DateTime date,
   ) async {
     try {
-      final response = await http
-          .post(
-            Uri.parse(url),
-            body: jsonEncode(
-              <String, String>{
-                'estacion_origen_id': originStationId.toString(),
-                'estacion_destino_id': destinationStationId.toString(),
-                'fecha': DateFormat('dd/MM/yyyy').format(date)
-              },
-            ),
-          )
-          .timeout(const Duration(seconds: 10));
+      final response = await http.post(
+        Uri.parse(url),
+        body: <String, String>{
+          'estacion_origen_id': originStationId.toString(),
+          'estacion_destino_id': destinationStationId.toString(),
+          'fecha': DateFormat('dd/MM/yyyy').format(date)
+        },
+      ).timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         var resultTimetableFgv =
@@ -49,12 +45,11 @@ class FgvTimetableService implements AbstractFgvTimetableService {
         List<Transfer> transfers = [];
 
         resultTimetableFgv!.transbordos?.forEach((fgvTransfer) {
-
           Map<int, List<String>> departures = {};
 
           fgvTransfer.horas?.forEach((key, value) {
             departures.putIfAbsent(int.parse(key), () => value);
-           });
+          });
 
           transfers.add(Transfer(
             Station.fgvStationToStation(fgvTransfer.estacionOrigenTransbordo!),
@@ -67,7 +62,7 @@ class FgvTimetableService implements AbstractFgvTimetableService {
         return Timetable(
             Station.fgvStationToStation(resultTimetableFgv.estacionOrigen!),
             Station.fgvStationToStation(resultTimetableFgv.estacionDestino!),
-            resultTimetableFgv.tarifas!,
+            resultTimetableFgv.tarifas ?? '',
             resultTimetableFgv.huellaDeCarbono!,
             resultTimetableFgv.duracionMinutos!,
             resultTimetableFgv.distancia!,
