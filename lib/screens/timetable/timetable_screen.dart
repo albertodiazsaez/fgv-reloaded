@@ -1,11 +1,5 @@
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/models/timetable.dart';
 import 'package:metrovalencia_reloaded/screens/timetable/components/timetable_card.dart';
 import 'package:metrovalencia_reloaded/screens/timetable/components/timetable_form_card.dart';
@@ -24,20 +18,21 @@ class TimetableScreen extends StatefulWidget {
 AbstractFgvTimetableService timetableService =
     getIt<AbstractFgvTimetableService>();
 
-Timetable? currentTimetable;
-
 class _TimetableScreenState extends State<TimetableScreen> {
+  Timetable? currentTimetable;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TimetableFormCard(
-          onCheckTimetable: _onCheckTimetable,
-        ),
-        if (currentTimetable != null) ...[
-          TimetableCard(currentTimetable!),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          TimetableFormCard(
+            onCheckTimetable: _onCheckTimetable,
+          ),
+          if (currentTimetable != null) ...[
+            TimetableCard(currentTimetable!),
+          ],
         ],
-      ],
+      ),
     );
   }
 

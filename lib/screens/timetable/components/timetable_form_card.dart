@@ -58,6 +58,7 @@ class _TimetableFormCardState extends State<TimetableFormCard> {
                               showCursor: false,
                               readOnly: true,
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.zero,
                                 label: Text(tr('timetable.originStation')),
                               ),
                             ),
@@ -74,6 +75,7 @@ class _TimetableFormCardState extends State<TimetableFormCard> {
                               showCursor: false,
                               readOnly: true,
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.zero,
                                 label: Text(tr('timetable.destinationStation')),
                               ),
                             ),

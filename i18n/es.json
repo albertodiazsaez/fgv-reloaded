@@ -25,7 +25,7 @@
             "one": "Línea",
             "many": "Líneas",
             "other": "Líneas"
-        }, 
+        },
         "minute": {
             "zero": "Min.",
             "one": "Min.",
@@ -45,7 +45,13 @@
         "selectDate": "Elige la fecha",
         "originStation": "Estación de Origen",
         "destinationStation": "Estación de Destino",
-        "chooseDifferentStations": "Elige estaciones diferentes como origen y destino"
+        "chooseDifferentStations": "Elige estaciones diferentes como origen y destino",
+        "zone": {
+            "zero": "Zona",
+            "one": "Zona",
+            "many": "Zonas",
+            "other": "Zonas"
+        }
     },
     "symbols": {
         "colon": ":"

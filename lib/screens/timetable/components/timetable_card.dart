@@ -1,9 +1,12 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:metrovalencia_reloaded/models/timetable.dart';
+import 'package:metrovalencia_reloaded/screens/timetable/components/timetable_common_data.dart';
+import 'package:metrovalencia_reloaded/screens/timetable/components/timetable_transfer.dart';
 
 class TimetableCard extends StatelessWidget {
   const TimetableCard(this.timetable, {Key? key}) : super(key: key);
@@ -19,68 +22,69 @@ class TimetableCard extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: [
-              Text(
-                'METROS: ' + _parseMeters(timetable.distance),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Text(
+                        timetable.originStation.name,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const Expanded(
+                      child: Icon(
+                        Icons.arrow_forward,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Text(
+                        timetable.destinationStation.name,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Text(
-                'CARBONO: ' + _parseCarbonFootprint(timetable.carbonFootprint),
-              ),
-              Text(
-                'ZONAS: ' + timetable.zones.toString(),
-              ),
-              Text(
-                'ORIGEN: ' + timetable.originStation.name.toString(),
-              ),
-              Text(
-                'DESTINO: ' + timetable.destinationStation.name.toString(),
-              ),
-              Text(
-                'TIEMPO: ' + _parseDuration(timetable.duration),
+              TimetableCommonData(timetable),
+              DefaultTabController(
+                length: timetable.transfers.length,
+                child: Column(
+                  children: [
+                    // TabBar(
+                    //   labelColor: Theme.of(context).colorScheme.primary,
+                    //   indicatorColor: Theme.of(context).colorScheme.primary,
+                    //   tabs: [
+                    //     for (var i = 1;
+                    //         i <= timetable.transfers.length;
+                    //         i++) ...{
+                    //       Tab(
+                    //         child: Text('Viaje ' + i.toString()),
+                    //       )
+                    //     }
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   child: TabBarView(
+                    //     children: [
+                    //       for (var transfer in timetable.transfers) ...{
+                    //         TimetableTransfer(timetable.transfers[0]),
+                    //       }
+                    //     ],
+                    //   ),
+                    // ),
+                    for (var transfer in timetable.transfers) ...{
+                      TimetableTransfer(transfer)
+                    }
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  _parseMeters(int distance) {
-    String result = distance.toString();
-
-    if (distance < 1000) {
-      result = result + ' m';
-    } else {
-      result = (distance / 1000).toStringAsFixed(2) + ' Km';
-    }
-    return result;
-  }
-
-  _parseCarbonFootprint(double carbonFootprint) {
-    String result = '';
-
-    if (carbonFootprint < 1) {
-      result = (carbonFootprint * 1000).toStringAsFixed(0) + ' g';
-    } else {
-      result = (carbonFootprint.toStringAsFixed(2) + ' Kg');
-    }
-
-    return result;
-  }
-
-  _parseDuration(int duration) {
-    String result = '';
-
-    if (duration < 60) {
-      result = duration.toString() + ' min';
-    } else {
-      int hours = 0;
-      while (duration > 60) {
-        duration = duration - 60;
-        hours++;
-      }
-      result = hours.toString() + ' h ' + duration.toString() + ' min';
-    }
-
-    return result;
   }
 }
