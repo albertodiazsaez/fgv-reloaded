@@ -9,42 +9,75 @@ class TimetableCommonData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      child: Row(
+    return Card(
+      child: Column(
         children: [
-          Expanded(
-            child: Column(
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Row(
               children: [
-                Text(plural('timetable.zone', timetable.zones.length) + ':'),
-                Text(timetable.zones),
+                Expanded(
+                  flex: 5,
+                  child: Text(
+                    timetable.originStation.name,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const Expanded(
+                  child: Icon(
+                    Icons.arrow_forward,
+                  ),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Text(
+                    timetable.destinationStation.name,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ],
             ),
           ),
-          Expanded(
-            child: Column(
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            child: Row(
               children: [
-                Icon(Icons.timer),
-                Text(_parseDuration(timetable.duration)),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(plural('timetable.zone', timetable.zones.length) +
+                          ':'),
+                      Text(timetable.zones),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Icon(Icons.timer),
+                      Text(_parseDuration(timetable.duration)),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Icon(Icons.straighten),
+                      Text(_parseMeters(timetable.distance)),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Icon(Icons.co2),
+                      Text(_parseCarbonFootprint(timetable.carbonFootprint)),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Icon(Icons.straighten),
-                Text(_parseMeters(timetable.distance)),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Icon(Icons.co2),
-                Text(_parseCarbonFootprint(timetable.carbonFootprint)),
-              ],
-            ),
-          ),
+          )
         ],
       ),
     );

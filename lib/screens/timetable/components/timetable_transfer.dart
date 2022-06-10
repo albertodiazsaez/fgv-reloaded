@@ -10,7 +10,8 @@ class TimetableTransfer extends StatelessWidget {
   Widget build(BuildContext context) {
     int tableRows = _getDeparturesCount(transfer.departures);
 
-    return Container(
+    return Card(
+        child: Container(
       padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(
         children: [
@@ -91,7 +92,7 @@ class TimetableTransfer extends StatelessWidget {
           )
         ],
       ),
-    );
+    ));
   }
 
   _getTime(List<String> departure) {
