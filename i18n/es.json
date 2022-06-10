@@ -51,7 +51,8 @@
             "one": "Zona",
             "many": "Zonas",
             "other": "Zonas"
-        }
+        },
+        "trainsDestinations": "Trenes con destino"
     },
     "symbols": {
         "colon": ":"

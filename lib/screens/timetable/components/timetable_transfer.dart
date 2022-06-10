@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metrovalencia_reloaded/models/timetable.dart';
 
@@ -43,21 +44,27 @@ class TimetableTransfer extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 5),
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    'Trenes con destino:',
+                    tr('timetable.trainsDestinations') + ':',
                     textAlign: TextAlign.center,
                   ),
                 ),
-                for (var destination in transfer.possibleDestinations) ...{
-                  Expanded(
-                      child: Text(
-                    destination,
-                    textAlign: TextAlign.center,
-                  ))
-                }
+                Row(
+                  children: [
+                    for (var destination in transfer.possibleDestinations) ...{
+                      Expanded(
+                        child: Text(
+                          destination,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    }
+                  ],
+                )
               ],
             ),
           ),
@@ -71,6 +78,9 @@ class TimetableTransfer extends StatelessWidget {
                       label: Expanded(
                         child: Text(
                           hour.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ),
