@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:metrovalencia_reloaded/models/timetable.dart';
 import 'package:metrovalencia_reloaded/screens/timetable/components/timetable_card.dart';
 import 'package:metrovalencia_reloaded/screens/timetable/components/timetable_form_card.dart';
@@ -41,7 +40,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
     LoaderUtils.setLoader();
 
     timetableService
-        .getTimetable(originStationId, destinationStationId, date)
+        .getCompleteTimetable(originStationId, destinationStationId, date)
         .then(
           (value) => {
             LoaderUtils.dismissLoader(),

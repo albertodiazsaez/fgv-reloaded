@@ -77,9 +77,10 @@ class TimetableTransfer extends StatelessWidget {
                     DataColumn(
                       label: Expanded(
                         child: Text(
-                          hour.toString(),
-                          style: const TextStyle(
+                          int.parse(hour.substring(1)).toString(),
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: hour.startsWith("N") ? Colors.indigo: Colors.black
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -122,7 +123,7 @@ class TimetableTransfer extends StatelessWidget {
     }
   }
 
-  int _getDeparturesCount(Map<int, List<String>> departures) {
+  int _getDeparturesCount(Map<String, List<String>> departures) {
     int count = 0;
 
     departures.forEach((key, value) {

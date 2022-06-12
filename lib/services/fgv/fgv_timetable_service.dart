@@ -17,6 +17,12 @@ abstract class AbstractFgvTimetableService {
     int destinationStationId,
     DateTime date,
   );
+
+  Future<Timetable> getCompleteTimetable(
+    int originStationId,
+    int destinationStationId,
+    DateTime date,
+  );
 }
 
 class FgvTimetableService implements AbstractFgvTimetableService {
@@ -45,10 +51,10 @@ class FgvTimetableService implements AbstractFgvTimetableService {
         List<Transfer> transfers = [];
 
         resultTimetableFgv!.transbordos?.forEach((fgvTransfer) {
-          Map<int, List<String>> departures = {};
+          Map<String, List<String>> departures = {};
 
           fgvTransfer.horas?.forEach((key, value) {
-            departures.putIfAbsent(int.parse(key), () => value);
+            departures.putIfAbsent("D" + key, () => value);
           });
 
           transfers.add(Transfer(
@@ -77,6 +83,51 @@ class FgvTimetableService implements AbstractFgvTimetableService {
     } on TimeoutException catch (e) {
       log(e.toString());
       throw FgvServerException();
+    }
+  }
+
+  @override
+  Future<Timetable> getCompleteTimetable(
+      int originStationId, int destinationStationId, DateTime date) async {
+    late Timetable sameDayTimetable;
+
+    await getTimetable(originStationId, destinationStationId, date)
+        .then((timetable) => (sameDayTimetable = timetable))
+        .timeout(const Duration(seconds: 10));
+
+    await getTimetable(
+      originStationId,
+      destinationStationId,
+      date.add(
+        const Duration(
+          days: 1,
+        ),
+      ),
+    )
+        .then(
+          (nextDatTimetable) => {
+            _setNightTimetable(
+              sameDayTimetable,
+              nextDatTimetable,
+            ),
+          },
+        )
+        .timeout(const Duration(seconds: 10));
+
+    return sameDayTimetable;
+  }
+
+  void _setNightTimetable(
+      Timetable sameDayTimetable, Timetable nextDayTimetable) {
+    for (var sameDayTransfer in sameDayTimetable.transfers) {
+      int transferIndex = sameDayTimetable.transfers.indexOf(sameDayTransfer);
+
+      nextDayTimetable.transfers[transferIndex].departures
+          .forEach((key, value) {
+        if (int.parse(key.substring(1)) < 4) {
+          sameDayTransfer.departures.putIfAbsent("N" + key.substring(1), () => value);
+        }
+      });
     }
   }
 }

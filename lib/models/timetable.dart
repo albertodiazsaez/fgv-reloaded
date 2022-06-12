@@ -24,7 +24,7 @@ class Transfer {
   Station originStation;
   Station destinationStation;
   List<String> possibleDestinations;
-  Map<int, List<String>> departures;
+  Map<String, List<String>> departures;
 
   Transfer(
     this.originStation,
