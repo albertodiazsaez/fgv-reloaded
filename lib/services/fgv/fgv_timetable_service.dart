@@ -12,6 +12,9 @@ import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/models/timetable.dart';
 
 abstract class AbstractFgvTimetableService {
+  static const String nightScheduleIndicator = "N";
+  static const String dayScheduleIndicator = "D";
+
   Future<Timetable> getTimetable(
     int originStationId,
     int destinationStationId,
@@ -54,7 +57,9 @@ class FgvTimetableService implements AbstractFgvTimetableService {
           Map<String, List<String>> departures = {};
 
           fgvTransfer.horas?.forEach((key, value) {
-            departures.putIfAbsent("D" + key, () => value);
+            departures.putIfAbsent(
+                AbstractFgvTimetableService.dayScheduleIndicator + key,
+                () => value);
           });
 
           transfers.add(Transfer(
@@ -125,8 +130,10 @@ class FgvTimetableService implements AbstractFgvTimetableService {
       nextDayTimetable.transfers[transferIndex].departures
           .forEach((key, value) {
         if (int.parse(key.substring(1)) < 4) {
-          sameDayTransfer.departures
-              .putIfAbsent("N" + key.substring(1), () => value);
+          sameDayTransfer.departures.putIfAbsent(
+              AbstractFgvTimetableService.nightScheduleIndicator +
+                  key.substring(1),
+              () => value);
         }
       });
     }
