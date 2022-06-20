@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/models/timetable.dart';
 import 'package:metrovalencia_reloaded/screens/timetable/components/timetable_card.dart';
 import 'package:metrovalencia_reloaded/screens/timetable/components/timetable_form_card.dart';
@@ -8,7 +9,9 @@ import 'package:metrovalencia_reloaded/services/service_locator.dart';
 import 'package:metrovalencia_reloaded/utils/loader_utils.dart';
 
 class TimetableScreen extends StatefulWidget {
-  const TimetableScreen({Key? key}) : super(key: key);
+  const TimetableScreen({Key? key, this.inputOriginStation}) : super(key: key);
+
+  final Station? inputOriginStation;
 
   @override
   State<TimetableScreen> createState() => _TimetableScreenState();
@@ -26,6 +29,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
         children: [
           TimetableFormCard(
             onCheckTimetable: _onCheckTimetable,
+            inputOriginStation: widget.inputOriginStation,
           ),
           if (currentTimetable != null) ...[
             TimetableCard(currentTimetable!),

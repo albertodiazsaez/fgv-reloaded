@@ -6,11 +6,14 @@ import 'package:metrovalencia_reloaded/screens/timetable/timetable_screen.dart';
 import 'package:metrovalencia_reloaded/utils/snackbar_utils.dart';
 
 class TimetableFormCard extends StatefulWidget {
-  const TimetableFormCard({Key? key, required this.onCheckTimetable})
+  const TimetableFormCard(
+      {Key? key, required this.onCheckTimetable, this.inputOriginStation})
       : super(key: key);
 
   @override
   State<TimetableFormCard> createState() => _TimetableFormCardState();
+
+  final Station? inputOriginStation;
 
   final Function(int originStationId, int destinationStationId, DateTime date)
       onCheckTimetable;
@@ -29,6 +32,11 @@ class _TimetableFormCardState extends State<TimetableFormCard> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.inputOriginStation != null) {
+      _setOriginStation(
+          widget.inputOriginStation!.fgvId, widget.inputOriginStation!.name);
+    }
+
     dateController.text = _parseDate(date);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
@@ -91,7 +99,7 @@ class _TimetableFormCardState extends State<TimetableFormCard> {
                           _reverseStations();
                         }),
                         iconSize: 30,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.swap_vert,
                         ),
                       ),

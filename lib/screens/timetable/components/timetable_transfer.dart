@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metrovalencia_reloaded/models/timetable.dart';
+import 'package:metrovalencia_reloaded/services/fgv/fgv_timetable_service.dart';
 
 class TimetableTransfer extends StatelessWidget {
   const TimetableTransfer(this.transfer, {Key? key}) : super(key: key);
@@ -68,50 +69,51 @@ class TimetableTransfer extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(
-                columns: [
-                  for (var hour in transfer.departures.keys)
-                    DataColumn(
-                      label: Expanded(
-                        child: Row(
-                          children: [
-                            if (hour.startsWith("N")) ...[
-                              const Expanded(
-                                child: Icon(Icons.nightlight_round,
-                                    color: Colors.indigo),
-                              ),
-                            ],
-                            Expanded(
-                              child: Text(
-                                int.parse(hour.substring(1)).toString(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: hour.startsWith("N")
-                                        ? Colors.indigo
-                                        : Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              columns: [
+                for (var hour in transfer.departures.keys)
+                  DataColumn(
+                    label: Expanded(
+                      child: Row(
+                        children: [
+                          if (hour.startsWith(AbstractFgvTimetableService
+                              .nightScheduleIndicator)) ...[
+                            const Expanded(
+                              child: Icon(Icons.nightlight_round,
+                                  color: Colors.indigo),
                             ),
                           ],
-                        ),
+                          Expanded(
+                            child: Text(
+                              int.parse(hour.substring(1)).toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: hour.startsWith(
+                                          AbstractFgvTimetableService
+                                              .nightScheduleIndicator)
+                                      ? Colors.indigo
+                                      : Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                ],
-                rows: [
-                  for (var i = 0; i < tableRows; i++) ...{
-                    DataRow(
-                      cells: [
-                        for (var departure in transfer.departures.values) ...{
-                          DataCell(_getTime(departure))
-                        }
-                      ],
-                    ),
-                  }
-                ],
-              ),
+                  ),
+              ],
+              rows: [
+                for (var i = 0; i < tableRows; i++) ...{
+                  DataRow(
+                    cells: [
+                      for (var departure in transfer.departures.values) ...{
+                        DataCell(_getTime(departure))
+                      }
+                    ],
+                  ),
+                }
+              ],
             ),
           )
         ],
