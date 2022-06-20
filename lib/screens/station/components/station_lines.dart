@@ -25,7 +25,6 @@ class StationLines extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              flex: 8,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -45,13 +44,10 @@ class StationLines extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: IconButton(
-                  splashRadius: 20,
-                  onPressed: () => _checkStationTimetable(context),
-                  icon: const Icon(Icons.calendar_month)),
-            )
+            IconButton(
+                splashRadius: 20,
+                onPressed: () => _checkStationTimetable(context),
+                icon: const Icon(Icons.calendar_month))
           ],
         ),
       ),
