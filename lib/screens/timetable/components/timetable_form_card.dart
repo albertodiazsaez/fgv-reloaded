@@ -32,10 +32,7 @@ class _TimetableFormCardState extends State<TimetableFormCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.inputOriginStation != null) {
-      _setOriginStation(
-          widget.inputOriginStation!.fgvId, widget.inputOriginStation!.name);
-    }
+    _setInputOriginStation();
 
     dateController.text = _parseDate(date);
     return Container(
@@ -174,6 +171,13 @@ class _TimetableFormCardState extends State<TimetableFormCard> {
     );
   }
 
+  void _setInputOriginStation() {
+    if (widget.inputOriginStation != null && originStationId == null) {
+      _setOriginStation(
+          widget.inputOriginStation!.id, widget.inputOriginStation!.name);
+    }
+  }
+
   String _parseDate(DateTime? value) {
     String dateParsed =
         DateFormat('E dd-MM-yyyy', context.locale.toString()).format(value!);
@@ -181,28 +185,29 @@ class _TimetableFormCardState extends State<TimetableFormCard> {
   }
 
   void _reverseStations() {
-    int? originStationIdTemp = originStationId;
-    String originStationTemp = originStationController.text;
-
-    _setOriginStation(
-        destinationStationId ?? 0, destinationStationController.text);
-    _setDestinationStation(originStationIdTemp ?? 0, originStationTemp);
+    setState(() {
+      int? originStationIdTemp = originStationId;
+      String originStationTemp = originStationController.text;
+      _setOriginStation(
+          destinationStationId ?? 0, destinationStationController.text);
+      _setDestinationStation(originStationIdTemp ?? 0, originStationTemp);
+    });
   }
 
   void _setOriginStation(int id, String name) {
-    originStationId = id;
-    originStationController.text = name;
+    setState(() {
+      originStationId = id;
+      originStationController.text = name;
+    });
     FocusScope.of(context).unfocus();
   }
 
   void _setDestinationStation(int id, String name) {
-    destinationStationId = id;
-    destinationStationController.text = name;
+    setState(() {
+      destinationStationId = id;
+      destinationStationController.text = name;
+    });
     FocusScope.of(context).unfocus();
-  }
-
-  void _setDate(DateTime date) {
-    this.date = date;
   }
 
   bool formIsInvalid() {
