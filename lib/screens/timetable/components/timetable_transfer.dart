@@ -76,13 +76,26 @@ class TimetableTransfer extends StatelessWidget {
                   for (var hour in transfer.departures.keys)
                     DataColumn(
                       label: Expanded(
-                        child: Text(
-                          int.parse(hour.substring(1)).toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: hour.startsWith("N") ? Colors.indigo: Colors.black
-                          ),
-                          textAlign: TextAlign.center,
+                        child: Row(
+                          children: [
+                            if (hour.startsWith("N")) ...[
+                              const Expanded(
+                                child: Icon(Icons.nightlight_round,
+                                    color: Colors.indigo),
+                              ),
+                            ],
+                            Expanded(
+                              child: Text(
+                                int.parse(hour.substring(1)).toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: hour.startsWith("N")
+                                        ? Colors.indigo
+                                        : Colors.black),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
