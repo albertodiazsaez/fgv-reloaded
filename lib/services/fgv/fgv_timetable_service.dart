@@ -105,10 +105,10 @@ class FgvTimetableService implements AbstractFgvTimetableService {
       ),
     )
         .then(
-          (nextDatTimetable) => {
+          (nextDayTimetable) => {
             _setNightTimetable(
               sameDayTimetable,
-              nextDatTimetable,
+              nextDayTimetable,
             ),
           },
         )
@@ -125,7 +125,8 @@ class FgvTimetableService implements AbstractFgvTimetableService {
       nextDayTimetable.transfers[transferIndex].departures
           .forEach((key, value) {
         if (int.parse(key.substring(1)) < 4) {
-          sameDayTransfer.departures.putIfAbsent("N" + key.substring(1), () => value);
+          sameDayTransfer.departures
+              .putIfAbsent("N" + key.substring(1), () => value);
         }
       });
     }
