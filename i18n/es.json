@@ -25,7 +25,7 @@
             "one": "Línea",
             "many": "Líneas",
             "other": "Líneas"
-        }, 
+        },
         "minute": {
             "zero": "Min.",
             "one": "Min.",
@@ -37,7 +37,22 @@
         "departure": "Sale en",
         "occupancy": "Ocupación",
         "departuresSubtitle": "Próximas Salidas",
-        "noDeparturesAvaiable": "No hay salidas disponibles"
+        "noDeparturesAvaiable": "No hay salidas disponibles",
+        "lookUp": "Consultar"
+    },
+    "timetable": {
+        "title": "Horarios",
+        "selectDate": "Elige la fecha",
+        "originStation": "Estación de Origen",
+        "destinationStation": "Estación de Destino",
+        "chooseDifferentStations": "Elige estaciones diferentes como origen y destino",
+        "zone": {
+            "zero": "Zona",
+            "one": "Zona",
+            "many": "Zonas",
+            "other": "Zonas"
+        },
+        "trainsDestinations": "Trenes con destino"
     },
     "symbols": {
         "colon": ":"
