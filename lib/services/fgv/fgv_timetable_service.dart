@@ -10,6 +10,7 @@ import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_online_timetable.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/models/timetable.dart';
+import 'package:metrovalencia_reloaded/utils/constants.dart';
 
 abstract class AbstractFgvTimetableService {
   static const String nightScheduleIndicator = "N";
@@ -45,7 +46,7 @@ class FgvTimetableService implements AbstractFgvTimetableService {
           'estacion_destino_id': destinationStationId.toString(),
           'fecha': DateFormat('dd/MM/yyyy').format(date)
         },
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: Constants.timeoutSeconds));
 
       if (response.statusCode == 200) {
         var resultTimetableFgv =
@@ -98,7 +99,7 @@ class FgvTimetableService implements AbstractFgvTimetableService {
 
     await getTimetable(originStationId, destinationStationId, date)
         .then((timetable) => (sameDayTimetable = timetable))
-        .timeout(const Duration(seconds: 10));
+        .timeout(const Duration(seconds: Constants.timeoutSeconds));
 
     await getTimetable(
       originStationId,
@@ -117,7 +118,7 @@ class FgvTimetableService implements AbstractFgvTimetableService {
             ),
           },
         )
-        .timeout(const Duration(seconds: 10));
+        .timeout(const Duration(seconds: Constants.timeoutSeconds));
 
     return sameDayTimetable;
   }
