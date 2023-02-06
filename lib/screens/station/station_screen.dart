@@ -31,23 +31,30 @@ class _StationScreenState extends State<StationScreen> {
   }
 
   void loadLiveDepartures() {
-    try {
-      setState(() {
-        showDepartures = false;
-        liveScheduleService.getLiveSchedules(widget.station.fgvId).then(
-              (liveSchedules) => {
-                setState(
-                  () => {
-                    liveDepartures = liveSchedules,
-                    showDepartures = true,
-                  },
-                )
-              },
-            );
+    setState(() {
+      showDepartures = false;
+      liveScheduleService
+          .getLiveSchedules(widget.station.fgvId)
+          .then(
+            (liveSchedules) => {
+              setState(
+                () => {
+                  liveDepartures = liveSchedules,
+                  showDepartures = true,
+                },
+              )
+            },
+          )
+          .catchError((e) {
+        setState(
+          () => {
+            liveDepartures = List.empty(),
+            showDepartures = true,
+          },
+        );
+        SnackbarUtils.textSnackbar(context, e.toString());
       });
-    } catch (e) {
-      SnackbarUtils.textSnackbar(context, e.toString());
-    }
+    });
   }
 
   @override
