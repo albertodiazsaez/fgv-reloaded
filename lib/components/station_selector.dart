@@ -26,22 +26,23 @@ class _StationSelectorState extends State<StationSelector> {
   void initState() {
     super.initState();
     LoaderUtils.setLoader();
-    try {
-      stationService.getStations().then(
-            (List<Station> value) => {
-              setState(
-                () => {
-                  stationsList = value,
-                  filteredStationsList = value,
-                  LoaderUtils.dismissLoader(),
-                },
-              ),
-            },
-          );
-    } catch (e) {
+    stationService
+        .getStations()
+        .then(
+          (List<Station> value) => {
+            setState(
+              () => {
+                stationsList = value,
+                filteredStationsList = value,
+                LoaderUtils.dismissLoader(),
+              },
+            ),
+          },
+        )
+        .catchError((e) {
       LoaderUtils.dismissLoader();
       SnackbarUtils.textSnackbar(context, e.toString());
-    }
+    });
   }
 
   AbstractFgvStationService stationService = getIt<AbstractFgvStationService>();
