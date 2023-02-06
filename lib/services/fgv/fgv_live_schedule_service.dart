@@ -9,6 +9,7 @@ import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_line.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_live_schedule.dart';
 import 'package:metrovalencia_reloaded/models/live_departures.dart';
+import 'package:metrovalencia_reloaded/utils/constants.dart';
 
 abstract class AbstractFgvLiveScheduleService {
   Future<List<LiveDepartures>> getLiveSchedules(int stationId);
@@ -22,7 +23,7 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
     try {
       final response = await http
           .get(Uri.parse(url + stationId.toString()))
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: Constants.timeoutSeconds));
 
       if (response.statusCode == 200) {
         Iterable rawFgvLiveSchedules = jsonDecode(response.body);
@@ -39,7 +40,10 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
           for (var train in trainsToCheck) {
             liveSchedulesList.add(LiveDepartures(
               fgvLiveSchedule.lineId,
-              fgvLines.where((element) => element.lineaIdFgv == train.lineId).first.color,
+              fgvLines
+                  .where((element) => element.lineaIdFgv == train.lineId)
+                  .first
+                  .color,
               train.destino,
               Duration(seconds: train.seconds),
               train.latitude,
@@ -60,6 +64,8 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
       }
     } on TimeoutException catch (e) {
       throw FgvServerException();
+    } on Exception catch (e) {
+      throw FgvServerException();
     }
   }
 
@@ -67,7 +73,7 @@ class FgvLiveScheduleServivce implements AbstractFgvLiveScheduleService {
     try {
       final linesResponse = await http
           .get(Uri.parse(linesUrl))
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: Constants.timeoutSeconds));
 
       if (linesResponse.statusCode == 200) {
         Iterable rawLines = jsonDecode(linesResponse.body);
