@@ -70,6 +70,6 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_JSONKEY }}
           packageName: com.albertodiazsaez.metrovalencia_reloaded
-          releaseFile: app-release.aab
+          releaseFiles: app-release.aab
           track: internal
           whatsNewDirectory: distribution/whatsnew
