@@ -23,10 +23,10 @@ jobs:
           flutter-version: "3.7.3"
 
       - name: Decode android/neumodore_key.jks
-        run: echo "${{ secrets.KEYSTORE_JKS_PROD }}" | base64 --decode > android/keystore.jks
+        run: echo "${{ secrets.KEYSTORE_JKS_PROD }}" | base64 --decode > android/app/keystore.jks
 
       - name: Decode android/key.properties
-        run: echo "${{ secrets.KEY_PROPERTIES_PROD }}" | base64 --decode > android/key.properties
+        run: echo "${{ secrets.KEY_PROPERTIES_PROD }}" | base64 --decode > android/app/key.properties
 
       - uses: olegtarasov/get-tag@v2 # that generate $GIT_TAG_NAME env
         id: tagName
