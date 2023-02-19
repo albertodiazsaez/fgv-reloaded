@@ -36,7 +36,7 @@ jobs:
 
       - name: Replace YAML version with tag version
         run: |
-          sed -i 's/99.99.99+99/'$GIT_TAG_NAME'/g' pubspec.yaml|
+          sed 's/^version:.*/version:$GIT_TAG_NAME/' pubspec.yaml|
           echo "Tag used version:"$GIT_TAG_NAME
       - name: Pub Get Packages
         run: flutter pub get
