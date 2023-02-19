@@ -28,7 +28,7 @@ jobs:
       - name: Decode android/key.properties
         run: echo "${{ secrets.KEY_PROPERTIES_PROD }}" | base64 --decode > android/app/key.properties
 
-      - uses: olegtarasov/get-tag@v2 # that generate $GIT_TAG_NAME env
+      - uses: olegtarasov/get-tag@v2.1 # that generate $GIT_TAG_NAME env
         id: tagName
         with:
           tagRegexGroup: 1 # Optional. Default is 1.
