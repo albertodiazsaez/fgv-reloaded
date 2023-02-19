@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LoaderUtils {
-    static void setLoader() {
+  static void setLoader() {
     EasyLoading el = EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 2000)
       ..indicatorType = EasyLoadingIndicatorType.fadingCircle
@@ -23,6 +23,4 @@ class LoaderUtils {
   static void dismissLoader() {
     EasyLoading.dismiss();
   }
-
-
 }

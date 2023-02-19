@@ -7,6 +7,7 @@ import 'package:metrovalencia_reloaded/screens/timetable/pages/select-station-pa
 import 'package:metrovalencia_reloaded/services/fgv/fgv_timetable_service.dart';
 import 'package:metrovalencia_reloaded/services/service_locator.dart';
 import 'package:metrovalencia_reloaded/utils/loader_utils.dart';
+import 'package:metrovalencia_reloaded/utils/snackbar_utils.dart';
 
 class TimetableScreen extends StatefulWidget {
   const TimetableScreen({Key? key, this.inputOriginStation}) : super(key: key);
@@ -54,7 +55,14 @@ class _TimetableScreenState extends State<TimetableScreen> {
               },
             )
           },
-        );
+        )
+        .catchError((e) {
+      setState(() {
+        currentTimetable = null;
+      });
+      LoaderUtils.dismissLoader();
+      SnackbarUtils.textSnackbar(context, e.toString());
+    });
   }
 }
 

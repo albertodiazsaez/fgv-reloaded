@@ -9,27 +9,25 @@ import 'package:metrovalencia_reloaded/exceptions/plain_message_exception.dart';
 import 'package:metrovalencia_reloaded/models/fgv/fgv_transport_card.dart';
 import 'package:metrovalencia_reloaded/models/transport_card_data.dart';
 import 'package:http/http.dart' as http;
+import 'package:metrovalencia_reloaded/utils/constants.dart';
 
 abstract class AbstractFgvTransportCardService {
   Future<TransportCard> getTransportCard(String transportCardNumber);
 }
 
-class FgvTransportCardService
-    implements AbstractFgvTransportCardService {
-
-var url = Environment.getFgvUrl()+'tarjetas-transporte/';
+class FgvTransportCardService implements AbstractFgvTransportCardService {
+  var url = Environment.getFgvUrl() + 'tarjetas-transporte/';
 
   @override
   Future<TransportCard> getTransportCard(String transportCardNumber) async {
     try {
       final response = await http
-          .get(Uri.parse(url+transportCardNumber))
-          .timeout(const Duration(seconds: 10));
+          .get(Uri.parse(url + transportCardNumber))
+          .timeout(const Duration(seconds: Constants.timeoutSeconds));
 
       if (response.statusCode == 200) {
         var resultTransportCard =
-            FgvTransportCard.fromJson(jsonDecode(response.body))
-                .resultado;
+            FgvTransportCard.fromJson(jsonDecode(response.body)).resultado;
 
         return TransportCard(
             cardNumber: transportCardNumber,
