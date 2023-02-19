@@ -32,7 +32,8 @@ jobs:
         id: tagName
         with:
           tagRegexGroup: 1 # Optional. Default is 1.
-
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       - name: Replace YAML version with tag version
         run: |
           sed -i 's/^version:.*/version: '$GIT_TAG_NAME'/' pubspec.yaml|
