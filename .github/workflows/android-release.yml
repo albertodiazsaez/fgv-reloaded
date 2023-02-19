@@ -39,6 +39,8 @@ jobs:
           sed -i 's/^version:.*/version: '$GIT_TAG_NAME'/' pubspec.yaml|
           echo "Tag used version:"$GIT_TAG_NAME|
           echo 'flutter.versionName='$GIT_TAG_NAME > android/local.properties
+          echo 'flutter.versionCode='$GIT_TAG_NAME > android/local.properties
+
       - name: Pub Get Packages
         run: flutter pub get
 
