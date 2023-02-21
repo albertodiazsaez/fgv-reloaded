@@ -21,7 +21,7 @@ class StationSelector extends StatefulWidget {
 
 // TODO: Separate list from component to reuse in (for example) selecting station in timetable selection.
 class _StationSelectorState extends State<StationSelector> {
-  static const String PREF_ID = "FAV_STATIONS_FGV_ID";
+  static const String prefId = "FAV_STATIONS_FGV_ID";
 
   List<Station> stationsList = [];
   List<Station> filteredStationsList = [];
@@ -40,15 +40,20 @@ class _StationSelectorState extends State<StationSelector> {
           (List<Station> value) => {
             setState(
               () => {
-                _loadPrefFavStations().then((favsIds) => {
-                      favStationsIdList = favsIds,
-                      stationsList = value,
-                      filteredStationsList = value,
-                      favStationsList =
-                          _getFavStations(value, favStationsIdList),
-                      filteredFavStationsList = favStationsList,
-                      LoaderUtils.dismissLoader(),
-                    }),
+                _loadPrefFavStations()
+                    .then((favsIds) => {
+                          favStationsIdList = favsIds,
+                          stationsList = value,
+                          filteredStationsList = value,
+                          favStationsList =
+                              _getFavStations(value, favStationsIdList),
+                          filteredFavStationsList = favStationsList,
+                          LoaderUtils.dismissLoader(),
+                        })
+                    .catchError((e) {
+                  LoaderUtils.dismissLoader();
+                  SnackbarUtils.textSnackbar(context, e.toString());
+                }),
               },
             ),
           },
@@ -164,16 +169,15 @@ class _StationSelectorState extends State<StationSelector> {
     favStationsIdList.forEach((element) {
       favStationsFgvIdsToSave.add(element.toString());
     });
-    prefs.setStringList(PREF_ID, favStationsFgvIdsToSave);
+    prefs.setStringList(prefId, favStationsFgvIdsToSave);
   }
 
   Future<List<int>> _loadPrefFavStations() async {
     final prefs = await SharedPreferences.getInstance();
 
     List<int> result = [];
-    List<String>? prefsFavs = [];
-    prefsFavs.addAll(prefs.getStringList(PREF_ID) as Iterable<String>);
-    if (prefsFavs.isNotEmpty) {
+    List<String>? prefsFavs = prefs.getStringList(prefId);
+    if (prefsFavs != null && prefsFavs.isNotEmpty) {
       prefsFavs.forEach((element) {
         result.add(int.parse(element));
       });
