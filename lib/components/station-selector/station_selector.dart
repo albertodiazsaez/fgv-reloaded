@@ -21,6 +21,8 @@ class StationSelector extends StatefulWidget {
 
 // TODO: Separate list from component to reuse in (for example) selecting station in timetable selection.
 class _StationSelectorState extends State<StationSelector> {
+  static const String PREF_ID = "FAV_STATIONS_FGV_ID";
+
   List<Station> stationsList = [];
   List<Station> filteredStationsList = [];
 
@@ -162,7 +164,7 @@ class _StationSelectorState extends State<StationSelector> {
     favStationsIdList.forEach((element) {
       favStationsFgvIdsToSave.add(element.toString());
     });
-    prefs.setStringList("FAV_STATIONS_FGV_ID", favStationsFgvIdsToSave);
+    prefs.setStringList(PREF_ID, favStationsFgvIdsToSave);
   }
 
   Future<List<int>> _loadPrefFavStations() async {
@@ -170,8 +172,7 @@ class _StationSelectorState extends State<StationSelector> {
 
     List<int> result = [];
     List<String>? prefsFavs = [];
-    prefsFavs
-        .addAll(prefs.getStringList("FAV_STATIONS_FGV_ID") as Iterable<String>);
+    prefsFavs.addAll(prefs.getStringList(PREF_ID) as Iterable<String>);
     if (prefsFavs.isNotEmpty) {
       prefsFavs.forEach((element) {
         result.add(int.parse(element));
