@@ -73,4 +73,5 @@ jobs:
           packageName: com.albertodiazsaez.metrovalencia_reloaded
           releaseFiles: app-release.aab
           track: internal
+          status: draft
           #whatsNewDirectory: distribution/whatsnew
