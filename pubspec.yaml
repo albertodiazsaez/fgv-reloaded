@@ -28,6 +28,9 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   http: ^0.13.4
+  sqflite:
+  path:
+  shared_preferences: ^2.0.17
   json_serializable: ^6.1.5
   #mask_text_input_formatter: ^2.1.0
   easy_mask: ^2.0.1

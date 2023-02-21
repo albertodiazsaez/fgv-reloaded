@@ -18,7 +18,9 @@
     },
     "stations": {
         "title": "Estaciones",
-        "searchStation": "Buscar Estación"
+        "searchStation": "Buscar Estación",
+        "all": "Todas",
+        "favorites": "Favoritas"
     },
     "station": {
         "line": {
