@@ -8,6 +8,7 @@ import 'package:metrovalencia_reloaded/services/fgv/fgv_station_service.dart';
 import 'package:metrovalencia_reloaded/services/service_locator.dart';
 import 'package:metrovalencia_reloaded/utils/loader_utils.dart';
 import 'package:metrovalencia_reloaded/utils/snackbar_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StationSelector extends StatefulWidget {
   const StationSelector(this.onStationSelected, {Key? key}) : super(key: key);
@@ -26,10 +27,10 @@ class _StationSelectorState extends State<StationSelector> {
   List<Station> favStationsList = [];
   List<Station> filteredFavStationsList = [];
   List<int> favStationsIdList = [];
+
   @override
   void initState() {
     super.initState();
-    favStationsIdList = [1, 2, 3, 4];
     LoaderUtils.setLoader();
     stationService
         .getStations()
@@ -37,11 +38,15 @@ class _StationSelectorState extends State<StationSelector> {
           (List<Station> value) => {
             setState(
               () => {
-                stationsList = value,
-                filteredStationsList = value,
-                favStationsList = _getFavStations(value, favStationsIdList),
-                filteredFavStationsList = favStationsList,
-                LoaderUtils.dismissLoader(),
+                _loadPrefFavStations().then((favsIds) => {
+                      favStationsIdList = favsIds,
+                      stationsList = value,
+                      filteredStationsList = value,
+                      favStationsList =
+                          _getFavStations(value, favStationsIdList),
+                      filteredFavStationsList = favStationsList,
+                      LoaderUtils.dismissLoader(),
+                    }),
               },
             ),
           },
@@ -100,17 +105,25 @@ class _StationSelectorState extends State<StationSelector> {
     );
   }
 
-  changeFavoriteStatus(Station station, bool isFavorite) {
+  changeFavoriteStatus(Station station, bool isFavorite) async {
     setState(() {
       if (isFavorite) {
         favStationsIdList.add(station.fgvId);
+        // When is favorite, we update the filtered list with all stations,
+        //to include the new added one.
+        filteredFavStationsList =
+            _getFavStations(stationsList, favStationsIdList);
       } else {
         favStationsIdList.remove(station.fgvId);
+        // When is not favorite, we update the filtered list with only filtered stations,
+        // to avoid showing all stations while searching.
+        filteredFavStationsList =
+            _getFavStations(filteredFavStationsList, favStationsIdList);
       }
-
-      filteredFavStationsList =
-          _getFavStations(stationsList, favStationsIdList);
+      favStationsList = _getFavStations(stationsList, favStationsIdList);
     });
+
+    await _updatePrefsFavStations();
   }
 
   _filterStation(String searchInput) {
@@ -136,10 +149,34 @@ class _StationSelectorState extends State<StationSelector> {
   _getFavStations(List<Station> stations, List<int> favStationsFgvIdList) {
     List<Station> favStations = [];
     stations.forEach((element) {
-      if (favStationsIdList.contains(element.fgvId)) {
+      if (favStationsFgvIdList.contains(element.fgvId)) {
         favStations.add(element);
       }
     });
     return favStations;
+  }
+
+  _updatePrefsFavStations() async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> favStationsFgvIdsToSave = [];
+    favStationsIdList.forEach((element) {
+      favStationsFgvIdsToSave.add(element.toString());
+    });
+    prefs.setStringList("FAV_STATIONS_FGV_ID", favStationsFgvIdsToSave);
+  }
+
+  Future<List<int>> _loadPrefFavStations() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    List<int> result = [];
+    List<String>? prefsFavs = [];
+    prefsFavs
+        .addAll(prefs.getStringList("FAV_STATIONS_FGV_ID") as Iterable<String>);
+    if (prefsFavs.isNotEmpty) {
+      prefsFavs.forEach((element) {
+        result.add(int.parse(element));
+      });
+    }
+    return result;
   }
 }
