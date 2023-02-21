@@ -1,7 +1,7 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
-import 'package:metrovalencia_reloaded/components/station_selector.dart';
+import 'package:metrovalencia_reloaded/components/station-selector/station_selector.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 
 class SelectStationPage extends StatefulWidget {

@@ -27,7 +27,7 @@ class LineNumber extends StatelessWidget {
           lineNumber.toString(),
           textAlign: TextAlign.center,
           style: TextStyle(
-            // Custom height breakes centering, when Flutter fixes it, make the Text bigger.
+              // Custom height breakes centering, when Flutter fixes it, make the Text bigger.
               height: 0,
               fontSize: size * 100,
               fontWeight: FontWeight.bold,
