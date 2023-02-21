@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:metrovalencia_reloaded/components/station_card.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 
-class StationList extends StatefulWidget {
+class StationList extends StatelessWidget {
   const StationList(
       this.stationList,
       this.favStationsFgvIdList,
@@ -23,16 +23,6 @@ class StationList extends StatefulWidget {
   final String scrollPageStorageKey;
 
   @override
-  State<StatefulWidget> createState() => _StationListState();
-}
-
-class _StationListState extends State<StationList> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -40,7 +30,7 @@ class _StationListState extends State<StationList> {
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: TextFormField(
             // TODO: Add debouncing/delay time to avoid stuttering.
-            onChanged: (searchInput) => widget.onSearch(searchInput),
+            onChanged: (searchInput) => onSearch(searchInput),
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.search,
             decoration: InputDecoration(hintText: tr('stations.searchStation')),
@@ -48,17 +38,17 @@ class _StationListState extends State<StationList> {
         ),
         Expanded(
           child: ListView.builder(
-            key: PageStorageKey(widget.scrollPageStorageKey),
+            key: PageStorageKey(scrollPageStorageKey),
             shrinkWrap: true,
-            itemCount: widget.stationList.length,
+            itemCount: stationList.length,
             itemBuilder: (context, index) {
-              Station stationToShow = widget.stationList.elementAt(index);
+              Station stationToShow = stationList.elementAt(index);
               return GestureDetector(
-                onTap: () => widget.onStationSelected(stationToShow),
+                onTap: () => onStationSelected(stationToShow),
                 child: StationCard(
                     stationToShow,
-                    widget.favStationsFgvIdList.contains(stationToShow.fgvId),
-                    widget.changeFavoriteStatus),
+                    favStationsFgvIdList.contains(stationToShow.fgvId),
+                    changeFavoriteStatus),
               );
             },
           ),
