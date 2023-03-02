@@ -21,10 +21,15 @@ class TimetableScreen extends StatefulWidget {
 AbstractFgvTimetableService timetableService =
     getIt<AbstractFgvTimetableService>();
 
-class _TimetableScreenState extends State<TimetableScreen> {
+class _TimetableScreenState extends State<TimetableScreen>
+    with AutomaticKeepAliveClientMixin<TimetableScreen> {
+  @override
+  bool get wantKeepAlive => true;
+
   Timetable? currentTimetable;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SingleChildScrollView(
       child: Column(
         children: [
