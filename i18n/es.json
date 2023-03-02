@@ -6,7 +6,7 @@
         "title": "Tarjetas",
         "cardNumberMask": "9999 9999 9999",
         "typeCardNumber": "Introduce el número de la tarjeta",
-        "pleaseTypeValidNumber": "Por favor introduzca un número válido",
+        "pleaseTypeValidNumber": "Por favor, introduce un número de tarjeta válido",
         "checkCard": "Comprobar Tarjeta",
         "card": {
             "cardNumber": "Número Tarjeta",
