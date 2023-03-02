@@ -48,9 +48,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'TitilliumWeb',
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: const Color.fromARGB(255, 222, 28, 44),
-            secondary: const Color.fromARGB(255, 47, 47, 47),
-          ),
+              primary: const Color.fromARGB(255, 222, 28, 44),
+              secondary: const Color.fromARGB(255, 56, 56, 56)),
         ),
         home: const MyHomePage(),
         builder: EasyLoading.init(),
