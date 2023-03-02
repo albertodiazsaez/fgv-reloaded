@@ -16,7 +16,8 @@ class CheckTransportCards extends StatefulWidget {
   State<CheckTransportCards> createState() => _CheckTransportCardsState();
 }
 
-class _CheckTransportCardsState extends State<CheckTransportCards> {
+class _CheckTransportCardsState extends State<CheckTransportCards>
+    with AutomaticKeepAliveClientMixin<CheckTransportCards> {
   final GlobalKey<FormState> _consultaTarjetaFormKey = GlobalKey<FormState>();
   final inputTarjetaController = TextEditingController();
 
@@ -31,7 +32,18 @@ class _CheckTransportCardsState extends State<CheckTransportCards> {
   Map checkedTransportCards = <int, TransportCard>{};
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    inputTarjetaController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Column(
@@ -127,12 +139,5 @@ class _CheckTransportCardsState extends State<CheckTransportCards> {
     } finally {
       LoaderUtils.dismissLoader();
     }
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    inputTarjetaController.dispose();
-    super.dispose();
   }
 }
