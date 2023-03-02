@@ -13,7 +13,7 @@ class TimetableCommonData extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Row(
               children: [
                 Expanded(
@@ -39,7 +39,7 @@ class TimetableCommonData extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: Row(
               children: [
                 Expanded(
@@ -54,7 +54,7 @@ class TimetableCommonData extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      Icon(Icons.timer),
+                      const Icon(Icons.timer_outlined),
                       Text(_parseDuration(timetable.duration)),
                     ],
                   ),
@@ -62,7 +62,7 @@ class TimetableCommonData extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      Icon(Icons.straighten),
+                      const Icon(Icons.straighten),
                       Text(_parseMeters(timetable.distance)),
                     ],
                   ),
@@ -70,7 +70,7 @@ class TimetableCommonData extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      Icon(Icons.co2),
+                      const Icon(Icons.co2),
                       Text(_parseCarbonFootprint(timetable.carbonFootprint)),
                     ],
                   ),

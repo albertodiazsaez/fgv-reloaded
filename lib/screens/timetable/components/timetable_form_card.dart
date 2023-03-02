@@ -19,9 +19,9 @@ class TimetableFormCard extends StatefulWidget {
       onCheckTimetable;
 }
 
-final _timetableForm = GlobalKey<FormState>();
-
 class _TimetableFormCardState extends State<TimetableFormCard> {
+  final GlobalKey<FormState> _timetableForm = GlobalKey<FormState>();
+
   var dateController = TextEditingController();
   var originStationController = TextEditingController();
   var destinationStationController = TextEditingController();
