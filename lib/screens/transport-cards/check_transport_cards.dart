@@ -123,21 +123,27 @@ class _CheckTransportCardsState extends State<CheckTransportCards>
   void obtenerDatosTarjetaFgv(String transportCardNumber) async {
     transportCardNumber = transportCardNumber.replaceAll(' ', '');
 
+    // Hide Keyboard
     FocusManager.instance.primaryFocus?.unfocus();
-    LoaderUtils.setLoader();
 
-    try {
-      var resultTransportCard =
-          await transportCardService.getTransportCard(transportCardNumber);
+    if (transportCardNumber.isNotEmpty) {
+      try {
+        LoaderUtils.setLoader();
+        var resultTransportCard =
+            await transportCardService.getTransportCard(transportCardNumber);
 
-      setState(() {
-        checkedTransportCards[int.parse(transportCardNumber)] =
-            resultTransportCard;
-      });
-    } catch (e) {
-      SnackbarUtils.textSnackbar(context, e.toString());
-    } finally {
-      LoaderUtils.dismissLoader();
+        setState(() {
+          checkedTransportCards[int.parse(transportCardNumber)] =
+              resultTransportCard;
+        });
+      } catch (e) {
+        SnackbarUtils.textSnackbar(context, e.toString());
+      } finally {
+        LoaderUtils.dismissLoader();
+      }
+    } else {
+      SnackbarUtils.textSnackbar(
+          context, tr('transportCards.pleaseTypeValidNumber'));
     }
   }
 }
