@@ -1,3 +1,5 @@
+import 'package:metrovalencia_reloaded/models/fgv/fgv_live_schedule.dart';
+
 class LiveDepartures {
   int lineId;
   String lineColor;
