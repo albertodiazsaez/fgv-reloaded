@@ -2,7 +2,6 @@ import 'package:diacritic/diacritic.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metrovalencia_reloaded/components/station-selector/station_list.dart';
-import 'package:metrovalencia_reloaded/components/station_card.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/services/fgv/fgv_station_service.dart';
 import 'package:metrovalencia_reloaded/services/service_locator.dart';
@@ -78,7 +77,10 @@ class _StationSelectorState extends State<StationSelector> {
               Material(
                 color: Theme.of(context).colorScheme.primary,
                 child: TabBar(
-                  indicatorColor: Theme.of(context).colorScheme.secondary,
+                  automaticIndicatorColorAdjustment: true,
+                  labelColor: Theme.of(context).colorScheme.onPrimary,
+                  unselectedLabelColor:
+                      Theme.of(context).colorScheme.onPrimaryContainer,
                   tabs: [
                     Tab(text: tr('stations.all')),
                     Tab(
