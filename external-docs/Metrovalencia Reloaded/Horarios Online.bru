@@ -1,0 +1,26 @@
+meta {
+  name: Horarios Online
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://www.fgv.es/ap18/api/public/es/api/v1/V/horarios-online
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  : 
+  Content-Type: multipart/form-data
+}
+
+body:multipart-form {
+  estacion_origen_id: 318
+  estacion_destino_id: 316
+  fecha: 24/05/2022
+}
+
+settings {
+  encodeUrl: true
+}

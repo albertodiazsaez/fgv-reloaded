@@ -38,18 +38,18 @@ class _StationScreenState extends State<StationScreen> {
           .then(
             (liveSchedules) => {
               setState(
-                () => {
-                  liveDepartures = liveSchedules,
-                  showDepartures = true,
+                () {
+                  liveDepartures = liveSchedules;
+                  showDepartures = true;
                 },
               )
             },
           )
           .catchError((e) {
         setState(
-          () => {
-            liveDepartures = List.empty(),
-            showDepartures = true,
+          () {
+            liveDepartures = List.empty();
+            showDepartures = true;
           },
         );
         SnackbarUtils.textSnackbar(context, e.toString());
@@ -79,8 +79,8 @@ class _StationScreenState extends State<StationScreen> {
         ),
         onRefresh: () {
           return Future<void>(
-            () => {
-              loadLiveDepartures(),
+            () {
+              loadLiveDepartures();
             },
           );
         });

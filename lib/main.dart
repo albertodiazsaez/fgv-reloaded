@@ -47,9 +47,10 @@ class MyApp extends StatelessWidget {
         },
         theme: ThemeData(
           fontFamily: 'TitilliumWeb',
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-              primary: const Color.fromARGB(255, 222, 28, 44),
-              secondary: const Color.fromARGB(255, 56, 56, 56)),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 222, 28, 44),
+            secondary: const Color.fromARGB(255, 56, 56, 56)
+          ),
         ),
         home: const MyHomePage(),
         builder: EasyLoading.init(),
@@ -75,7 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-
     return const Scaffold(
       resizeToAvoidBottomInset: false,
       body: HomeScreen(),

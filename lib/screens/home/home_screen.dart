@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:metrovalencia_reloaded/permissions/location_perm.dart';
 import 'package:metrovalencia_reloaded/screens/stations/stations_screen.dart';
 import 'package:metrovalencia_reloaded/screens/timetable/timetable_screen.dart';
 import 'package:metrovalencia_reloaded/screens/transport-cards/check_transport_cards.dart';
+import 'package:metrovalencia_reloaded/services/fgv/fgv_nearby_station_service.dart';
+import 'package:metrovalencia_reloaded/services/service_locator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  AbstractFgvNeabyStationService nearbyStationService =
+      getIt<AbstractFgvNeabyStationService>();
   late Text appBarTitleText;
   late int _currentIndex;
   late PageController _pageController;
@@ -21,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _currentIndex = 0;
     _pageController = PageController(initialPage: _currentIndex);
     appBarTitleText = Text(tr('appTitle'));
+
     super.initState();
   }
 
@@ -83,6 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
       String text = '';
       switch (index) {
         case 0:
+          LocationPerm.showLocationPermissionDialog(context);
+          nearbyStationService.getNearbyStations().then(
+                (value) => log(inspect(value).toString()),
+              );
           text = tr('home');
           break;
         case 1:
