@@ -30,7 +30,7 @@ abstract class AbstractFgvTimetableService {
 }
 
 class FgvTimetableService implements AbstractFgvTimetableService {
-  var url = Environment.getFgvUrl() + 'horarios-online';
+  var url = '${Environment.getFgvUrl()}horarios-online2';
 
   @override
   Future<Timetable> getTimetable(
@@ -50,7 +50,8 @@ class FgvTimetableService implements AbstractFgvTimetableService {
 
       if (response.statusCode == 200) {
         var resultTimetableFgv =
-            FgvOnlineTimetable.fromJson(jsonDecode(response.body)).resultado;
+        // TODO: CAMBIAR [0] PARA PODER TENER TODAS LAS ALTERNATIVAS, AHORA SOLO DA LA PRIMERA
+            FgvOnlineTimetable.fromJson(jsonDecode(response.body)).resultado[0];
 
         List<Transfer> transfers = [];
 

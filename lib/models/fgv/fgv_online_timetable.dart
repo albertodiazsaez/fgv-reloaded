@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final fgvOnlineTimetable = fgvOnlineTimetableFromJson(jsonString);
+
 import 'dart:convert';
 
 import 'package:metrovalencia_reloaded/models/fgv/fgv_station.dart';
@@ -7,97 +11,150 @@ FgvOnlineTimetable fgvOnlineTimetableFromJson(String str) => FgvOnlineTimetable.
 String fgvOnlineTimetableToJson(FgvOnlineTimetable data) => json.encode(data.toJson());
 
 class FgvOnlineTimetable {
-    FgvOnlineTimetable({
-        this.status,
-        this.error,
-        this.resultado,
-    });
+    int status;
+    int error;
+    List<Resultado> resultado;
 
-    int? status;
-    int? error;
-    Resultado? resultado;
+    FgvOnlineTimetable({
+        required this.status,
+        required this.error,
+        required this.resultado,
+    });
 
     factory FgvOnlineTimetable.fromJson(Map<String, dynamic> json) => FgvOnlineTimetable(
         status: json["status"],
         error: json["error"],
-        resultado: json["resultado"] == null ? null : Resultado.fromJson(json["resultado"]),
+        resultado: List<Resultado>.from(json["resultado"].map((x) => Resultado.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "status": status,
         "error": error,
-        "resultado": resultado?.toJson(),
+        "resultado": List<dynamic>.from(resultado.map((x) => x.toJson())),
     };
 }
 
 class Resultado {
+    Titulo titulo;
+    FgvStation estacionOrigen;
+    FgvStation estacionDestino;
+    String tarifas;
+    double huellaDeCarbono;
+    int duracionMinutos;
+    int distancia;
+    List<Transbordo> transbordos;
+    String mensaje;
+
     Resultado({
-        this.estacionOrigen,
-        this.estacionDestino,
-        this.tarifas,
-        this.huellaDeCarbono,
-        this.duracionMinutos,
-        this.distancia,
-        this.transbordos,
+        required this.titulo,
+        required this.estacionOrigen,
+        required this.estacionDestino,
+        required this.tarifas,
+        required this.huellaDeCarbono,
+        required this.duracionMinutos,
+        required this.distancia,
+        required this.transbordos,
+        required this.mensaje,
     });
 
-    FgvStation? estacionOrigen;
-    FgvStation? estacionDestino;
-    String? tarifas;
-    double? huellaDeCarbono;
-    int? duracionMinutos;
-    int? distancia;
-    List<Transbordo>? transbordos;
-
     factory Resultado.fromJson(Map<String, dynamic> json) => Resultado(
-        estacionOrigen: json["estacion_origen"] == null ? null : FgvStation.fromJson(json["estacion_origen"]),
-        estacionDestino: json["estacion_destino"] == null ? null : FgvStation.fromJson(json["estacion_destino"]),
+        titulo: Titulo.fromJson(json["titulo"]),
+        estacionOrigen: FgvStation.fromJson(json["estacion_origen"]),
+        estacionDestino: FgvStation.fromJson(json["estacion_destino"]),
         tarifas: json["tarifas"],
-        huellaDeCarbono: json["huella_de_carbono"].toDouble(),
+        huellaDeCarbono: json["huella_de_carbono"]?.toDouble(),
         duracionMinutos: json["duracion_minutos"],
         distancia: json["distancia"],
-        transbordos: json["transbordos"] == null ? null : List<Transbordo>.from(json["transbordos"].map((x) => Transbordo.fromJson(x))),
+        transbordos: List<Transbordo>.from(json["transbordos"].map((x) => Transbordo.fromJson(x))),
+        mensaje: json["mensaje"],
     );
 
     Map<String, dynamic> toJson() => {
-        "estacion_origen": estacionOrigen?.toJson(),
-        "estacion_destino": estacionDestino?.toJson(),
+        "titulo": titulo.toJson(),
+        "estacion_origen": estacionOrigen.toJson(),
+        "estacion_destino": estacionDestino.toJson(),
         "tarifas": tarifas,
         "huella_de_carbono": huellaDeCarbono,
         "duracion_minutos": duracionMinutos,
         "distancia": distancia,
-        "transbordos": transbordos == null ? null : List<dynamic>.from(transbordos!.map((x) => x.toJson())),
+        "transbordos": List<dynamic>.from(transbordos.map((x) => x.toJson())),
+        "mensaje": mensaje,
+    };
+}
+
+
+enum Sede {
+    V
+}
+
+final sedeValues = EnumValues({
+    "V": Sede.V
+});
+
+class Titulo {
+    String es;
+    String vl;
+    String en;
+
+    Titulo({
+        required this.es,
+        required this.vl,
+        required this.en,
+    });
+
+    factory Titulo.fromJson(Map<String, dynamic> json) => Titulo(
+        es: json["ES"],
+        vl: json["VL"],
+        en: json["EN"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "ES": es,
+        "VL": vl,
+        "EN": en,
     };
 }
 
 class Transbordo {
+    FgvStation estacionOrigenTransbordo;
+    FgvStation estacionDestinoTransbordo;
+    List<dynamic> lineas;
+    List<String> destinos;
+    Map<String, List<String>> horas;
+
     Transbordo({
-        this.estacionOrigenTransbordo,
-        this.estacionDestinoTransbordo,
-        this.lineas,
-        this.destinos,
-        this.horas,
+        required this.estacionOrigenTransbordo,
+        required this.estacionDestinoTransbordo,
+        required this.lineas,
+        required this.destinos,
+        required this.horas,
     });
 
-    FgvStation? estacionOrigenTransbordo;
-    FgvStation? estacionDestinoTransbordo;
-    List<dynamic>? lineas;
-    List<String>? destinos;
-    Map<String, List<String>>? horas;
-
     factory Transbordo.fromJson(Map<String, dynamic> json) => Transbordo(
-        estacionOrigenTransbordo: json["estacion_origen_transbordo"] == null ? null : FgvStation.fromJson(json["estacion_origen_transbordo"]),
-        estacionDestinoTransbordo: json["estacion_destino_transbordo"] == null ? null : FgvStation.fromJson(json["estacion_destino_transbordo"]),
-        lineas: json["lineas"] == null ? null : List<dynamic>.from(json["lineas"].map((x) => x)),
-        destinos: json["destinos"] == null ? null : List<String>.from(json["destinos"].map((x) => x)),
-        horas: json["horas"] == null ? null : Map.from(json["horas"]).map((k, v) => MapEntry<String, List<String>>(k, List<String>.from(v.map((x) => x)))),
+        estacionOrigenTransbordo: FgvStation.fromJson(json["estacion_origen_transbordo"]),
+        estacionDestinoTransbordo: FgvStation.fromJson(json["estacion_destino_transbordo"]),
+        lineas: List<dynamic>.from(json["lineas"].map((x) => x)),
+        destinos: List<String>.from(json["destinos"].map((x) => x)),
+        horas: Map.from(json["horas"]).map((k, v) => MapEntry<String, List<String>>(k, List<String>.from(v.map((x) => x)))),
     );
 
     Map<String, dynamic> toJson() => {
-        "estacion_origen_transbordo": estacionOrigenTransbordo?.toJson(),
-        "estacion_destino_transbordo": estacionDestinoTransbordo?.toJson(),
-        "lineas": lineas == null ? null : List<dynamic>.from(lineas!.map((x) => x)),
-        "destinos": destinos == null ? null : List<dynamic>.from(destinos!.map((x) => x)),
-        "horas": horas == null ? null : Map.from(horas!).map((k, v) => MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x)))),
+        "estacion_origen_transbordo": estacionOrigenTransbordo.toJson(),
+        "estacion_destino_transbordo": estacionDestinoTransbordo.toJson(),
+        "lineas": List<dynamic>.from(lineas.map((x) => x)),
+        "destinos": List<dynamic>.from(destinos.map((x) => x)),
+        "horas": Map.from(horas).map((k, v) => MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x)))),
     };
+}
+
+class EnumValues<T> {
+    Map<String, T> map;
+    late Map<T, String> reverseMap;
+
+    EnumValues(this.map);
+
+    Map<T, String> get reverse {
+            reverseMap = map.map((k, v) => MapEntry(v, k));
+            return reverseMap;
+    }
 }
