@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:metrovalencia_reloaded/components/line_number.dart';
 import 'package:metrovalencia_reloaded/models/station.dart';
 import 'package:metrovalencia_reloaded/utils/hex_color.dart';
@@ -31,6 +30,7 @@ class _StationCardState extends State<StationCard> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2.5),
       child: Card(
+        color: Theme.of(context).colorScheme.surface,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -69,9 +69,9 @@ class _StationCardState extends State<StationCard> {
                       Icon(widget.isFavorite ? Icons.star : Icons.star_border),
                   color: widget.isFavorite ? Colors.amber : null,
                   onPressed: () => setState(
-                        () => {
+                        () {
                           widget.changeFavoriteStatus(
-                              widget.station, !widget.isFavorite)
+                              widget.station, !widget.isFavorite);
                         },
                       )),
             )

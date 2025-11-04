@@ -51,7 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: appBarTitleText),
+        appBar: AppBar(
+          title: appBarTitleText,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          backgroundColor:Theme.of(context).colorScheme.primary,
+        ),
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
@@ -80,7 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: _currentIndex,
           onTap: _changeTab,
           backgroundColor: Theme.of(context).colorScheme.primary,
-          selectedItemColor: Colors.white,
+          selectedItemColor: Theme.of(context).colorScheme.onPrimary,
+          unselectedItemColor: Theme.of(context).colorScheme.onPrimaryContainer,
         ));
   }
 

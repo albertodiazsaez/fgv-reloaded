@@ -38,7 +38,7 @@ class _StationSelectorState extends State<StationSelector> {
         .then(
           (List<Station> value) => {
             setState(
-              () => {
+              () {
                 _loadPrefFavStations()
                     .then((favsIds) => {
                           favStationsIdList = favsIds,
@@ -52,7 +52,7 @@ class _StationSelectorState extends State<StationSelector> {
                     .catchError((e) {
                   LoaderUtils.dismissLoader();
                   SnackbarUtils.textSnackbar(context, e.toString());
-                }),
+                });
               },
             ),
           },
@@ -72,12 +72,12 @@ class _StationSelectorState extends State<StationSelector> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Material(
                 color: Theme.of(context).colorScheme.primary,
                 child: TabBar(
-                  automaticIndicatorColorAdjustment: true,
+                  indicatorColor: Theme.of(context).colorScheme.onPrimary,
                   labelColor: Theme.of(context).colorScheme.onPrimary,
                   unselectedLabelColor:
                       Theme.of(context).colorScheme.onPrimaryContainer,
